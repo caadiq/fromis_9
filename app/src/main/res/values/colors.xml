@@ -1,5 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <!-- 앱 기본 색상 -->
+    <color name="colorPrimary">@color/colorUnlockMyWorldPrimary</color> <!-- 메인 색상 -->
+    <color name="colorOnPrimary">@color/colorUnlockMyWorldSecondary</color> <!-- Primary와 상반되는 색상 -->
+    <color name="colorPrimaryVariant">@color/white</color> <!-- Primary 강조 색상 -->
+    <color name="colorSecondary">@color/colorUnlockMyWorldPrimary</color> <!-- 서브 색상 -->
+    <color name="colorOnSecondary">@color/white</color> <!-- Secondary와 상반되는 색상 -->
+
+    <!-- 색상 팔레트 -->
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+
+    <!-- 앨범별 색상 -->
+    <!-- Unlock My World -->
+    <color name="colorUnlockMyWorldPrimary">#DA75A1</color>
+    <color name="colorUnlockMyWorldSecondary">#000000</color>
+    <!-- from our Memento Box -->
+    <color name="colorFromOurMementoBoxPrimary">#36BEF0</color>
+    <color name="colorFromOurMementoBoxSecondary">#E0EF88</color>
+    <!-- Midnight Guest -->
+    <color name="colorMidnightGuestPrimary">#BCBCDE</color>
+    <color name="colorMidnightGuestSecondary">#FFF474</color>
+    <!-- Talk & Talk -->
+    <color name="colorTalkAndTalkPrimary">#71C4D4</color>
+    <color name="colorTalkAndTalkSecondary">#405364</color>
+    <!-- 9 WAY TICKET -->
+    <color name="color9WayTicketPrimary">#d7d8da</color>
+    <color name="color9WayTicketSecondary">#8D6D54</color>
+    <!-- My Little Society -->
+    <color name="colorMyLittleSocietyPrimary">#0080CB</color>
+    <color name="colorMyLittleSocietySecondary">#FFFFFF</color>
+    <!-- FUN FACTORY -->
+    <color name="colorFunFactoryPrimary">#F14E9D</color>
+    <color name="colorFunFactorySecondary">#fc8e1e</color>
+    <!-- From.9 -->
+    <color name="colorFrom9Primary">#9B89C7</color>
+    <color name="colorFrom9Secondary">#FFFFFF</color>
+    <!-- To. Day -->
+    <color name="colorToDayPrimary">#FCEAEA</color>
+    <color name="colorToDaySecondary">#E14946</color>
+    <!-- To. Heart -->
+    <color name="colorToHeartPrimary">#8AA9D8</color>
+    <color name="colorToHeartSecondary">#224974</color>
+    <!-- fromis_9 PRE_DEBUT SINGLE -->
+    <color name="colorPreDebutPrimary">#FFFFFF</color>
+    <color name="colorPreDebutSecondary">#5593C4</color>
 </resources>
