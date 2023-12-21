@@ -51,6 +51,7 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("com.google.android.material:material:1.11.0")
 
-    // 바텀바 라이브러리
-    implementation("com.github.ibrahimsn98:SmoothBottomBar:1.7.9")
+    // 기타 라이브러리
+    implementation("com.github.ibrahimsn98:SmoothBottomBar:1.7.9") // SmoothBottomBar
+    implementation("com.github.bumptech.glide:glide:4.16.0") // Glide
 }

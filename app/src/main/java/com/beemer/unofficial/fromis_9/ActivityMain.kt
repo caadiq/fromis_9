@@ -19,10 +19,6 @@ class ActivityMain : AppCompatActivity() {
     private val layoutParent by lazy { binding.layoutParent }
     private val layoutFragment by lazy { binding.layoutFragment }
 
-    private var fragmentHome: FragmentHome? = null
-    private var fragmentVideo: FragmentVideo? = null
-    private var fragmentSchedule: FragmentSchedule? = null
-
     private var backPressedTime: Long = 0
     private val backPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
@@ -64,12 +60,13 @@ class ActivityMain : AppCompatActivity() {
     }
 
     private fun onBottomBarItemSelected(position: Int) {
-        val fragment = when (position) {
-            0 -> fragmentHome ?: FragmentHome().also { fragmentHome = it }
-            1 -> fragmentVideo ?: FragmentVideo().also { fragmentVideo = it }
-            else -> fragmentSchedule ?: FragmentSchedule().also { fragmentSchedule = it }
-        }
-        changeFragment(fragment)
+        changeFragment(
+            when (position) {
+                0 -> FragmentHome()
+                1 -> FragmentVideo()
+                else -> FragmentSchedule()
+            }
+        )
     }
 
     private fun changeFragment(fragment: Fragment) {
