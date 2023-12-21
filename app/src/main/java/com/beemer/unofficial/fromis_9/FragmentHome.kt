@@ -42,7 +42,6 @@ class FragmentHome : Fragment() {
         recyclerView.apply {
             layoutManager = gridLayoutmanager
             adapter = adapterHome
-            addItemDecoration(ItemDecoratorDividerPadding(10))
         }
 
         homeItemList.apply {
