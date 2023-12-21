@@ -16,6 +16,10 @@ class ActivityMain : AppCompatActivity() {
     private val layoutFragment by lazy { binding.layoutFragment }
     private val bottombar by lazy { binding.bottombar }
 
+    private var fragmentHome: FragmentHome? = null
+    private var fragmentVideo: FragmentVideo? = null
+    private var fragmentSchedule: FragmentSchedule? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -43,13 +47,12 @@ class ActivityMain : AppCompatActivity() {
     }
 
     private fun onBottomBarItemSelected(position: Int) {
-        changeFragment(
-            when (position) {
-                0 -> FragmentHome()
-                1 -> FragmentVideo()
-                else -> FragmentSchedule()
-            }
-        )
+        val fragment = when (position) {
+            0 -> fragmentHome ?: FragmentHome().also { fragmentHome = it }
+            1 -> fragmentVideo ?: FragmentVideo().also { fragmentVideo = it }
+            else -> fragmentSchedule ?: FragmentSchedule().also { fragmentSchedule = it }
+        }
+        changeFragment(fragment)
     }
 
     private fun changeFragment(fragment: Fragment) {
