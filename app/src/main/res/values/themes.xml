@@ -30,4 +30,13 @@
         <item name="textColor">@color/colorPrimary</item>
         <item name="textSize">18dp</item>
     </style>
+
+    <style name="StyleCardView" parent="Widget.MaterialComponents.CardView">
+        <item name="android:backgroundTint">@color/white</item>
+        <item name="cardCornerRadius">8dp</item>
+        <item name="cardElevation">2dp</item>
+        <item name="cardUseCompatPadding">true</item>
+        <item name="rippleColor">@android:color/transparent</item>
+        <item name="strokeWidth">0dp</item>
+    </style>
 </resources>
