@@ -54,4 +54,5 @@ dependencies {
     // 기타 라이브러리
     implementation("com.github.ibrahimsn98:SmoothBottomBar:1.7.9") // SmoothBottomBar
     implementation("com.github.bumptech.glide:glide:4.16.0") // Glide
+    implementation("com.kizitonwose.calendar:view:2.4.1") // Calendar
 }
