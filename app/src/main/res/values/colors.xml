@@ -12,6 +12,8 @@
     <color name="white">#FFFFFF</color>
     <color name="red">#F44336</color>
     <color name="blue">#3F51B5</color>
+    <color name="sky_blue">#2196F3</color>
+    <color name="purple">#9C27B0</color>
     <color name="lighter_gray">#FFFBFE</color>
     <color name="light_gray">#E0E0E0</color>
     <color name="gray">#9E9E9E</color>

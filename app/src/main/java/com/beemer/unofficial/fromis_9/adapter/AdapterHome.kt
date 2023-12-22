@@ -5,13 +5,9 @@ import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.beemer.unofficial.fromis_9.data.DataHome
 import com.beemer.unofficial.fromis_9.databinding.RowHomeBinding
 import com.bumptech.glide.Glide
-
-data class DataHome(
-    val image : Int,
-    val title : String
-)
 
 class AdapterHome : RecyclerView.Adapter<AdapterHome.ViewHolder>() {
     var itemList = mutableListOf<DataHome>()
@@ -32,7 +28,7 @@ class AdapterHome : RecyclerView.Adapter<AdapterHome.ViewHolder>() {
     inner class ViewHolder(private val binding: RowHomeBinding) : RecyclerView.ViewHolder(binding.root) {
         init {
             itemView.setOnClickListener {
-                val position = adapterPosition
+                val position = bindingAdapterPosition
                 if (position != RecyclerView.NO_POSITION) {
                     onItemClickListener?.invoke(itemList[position], position)
                 }

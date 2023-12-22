@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup
 import com.beemer.unofficial.fromis_9.adapter.AdapterHome
-import com.beemer.unofficial.fromis_9.adapter.DataHome
+import com.beemer.unofficial.fromis_9.data.DataHome
 import com.beemer.unofficial.fromis_9.databinding.FragmentHomeBinding
 
 class FragmentHome : Fragment() {

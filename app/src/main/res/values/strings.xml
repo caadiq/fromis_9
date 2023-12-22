@@ -3,11 +3,15 @@
     <string name="app_name">fromis_9</string>
 
     <!-- - - - - - - - - - - - - - - - - - - - - - Layout - - - - - - - - - - - - - - - - - - - - - - -->
-
+    <!-- fragment_schedule -->
+    <string name="str_fragment_schedule_no_schedule">일정이 없습니다.</string>
+    <string name="str_calendar_day_dot">●</string>
 
     <!-- - - - - - - - - - - - - - - - - - - - - - Class - - - - - - - - - - - - - - - - - - - - - - -->
     <!-- ActivityMain -->
     <string name="str_activity_main_press_back">뒤로 가기 버튼을 한 번 더 누르면 종료됩니다.</string>
+    <!-- FragmentSchedule -->
+    <string name="str_fragment_schedule_calendar_title">%1$s년 %2$s월</string>
 
     <!-- - - - - - - - - - - - - - - - - - - - - - Menu - - - - - - - - - - - - - - - - - - - - - - -->
     <!-- menu_main_bottombar -->
