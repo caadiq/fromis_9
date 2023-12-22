@@ -11,7 +11,6 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.DividerItemDecoration
 import com.beemer.unofficial.fromis_9.adapter.AdapterSchedule
 import com.beemer.unofficial.fromis_9.api.ApiSchedule
 import com.beemer.unofficial.fromis_9.api.ScheduleResponse
@@ -122,6 +121,13 @@ class FragmentSchedule : Fragment() {
                         }
                     }
 
+                    // 요일에 따른 글씨 색상 변경
+                    when (data.date.dayOfWeek) {
+                        DayOfWeek.SATURDAY -> container.calendarDayText.setTextColor(ContextCompat.getColor(activityMain, R.color.blue)) // 토요일
+                        DayOfWeek.SUNDAY -> container.calendarDayText.setTextColor(ContextCompat.getColor(activityMain, R.color.red)) // 일요일
+                        else -> container.calendarDayText.setTextColor(Color.BLACK) // 평일
+                    }
+
                     // 일정이 있는 날에만 점 표시
                     if (scheduleDataMap.containsKey(data.date) && scheduleDataMap[data.date]!!.isNotEmpty()) {
                         container.calendarDayDot.visibility = View.VISIBLE
@@ -129,24 +135,18 @@ class FragmentSchedule : Fragment() {
                         container.calendarDayDot.visibility = View.GONE
                     }
 
-                    // 날짜에 스타일 적용
-                    if (data.date == date) {
-                        container.calendarDayText.background = textBorder // 해당 날짜(초깃값은 오늘, 날짜 클릭 시 클릭한 날짜)에 테두리 추가
-                        textDate.text = data.date.format(DateTimeFormatter.ofPattern("M월 d일 E요일", Locale.KOREAN))
-                        updateRecyclerViewWithSchedule(date)
-                    } else {
+                    // 지난달과 다음달 날짜 글씨 색상 및 배경 변경
+                    if (data.position == DayPosition.OutDate || data.position == DayPosition.InDate) {
+                        container.calendarDayText.setTextColor(ContextCompat.getColor(activityMain, R.color.gray))
                         container.calendarDayText.background = null
-
-                        // 요일에 따른 글씨 색상 변경
-                        when (data.date.dayOfWeek) {
-                            DayOfWeek.SATURDAY -> container.calendarDayText.setTextColor(ContextCompat.getColor(activityMain, R.color.blue)) // 토요일
-                            DayOfWeek.SUNDAY -> container.calendarDayText.setTextColor(ContextCompat.getColor(activityMain, R.color.red)) // 일요일
-                            else -> container.calendarDayText.setTextColor(Color.BLACK) // 평일
-                        }
-
-                        // 지난달과 다음달 날짜 글씨 색상 변경
-                        if (data.position == DayPosition.OutDate || data.position == DayPosition.InDate) {
-                            container.calendarDayText.setTextColor(ContextCompat.getColor(activityMain, R.color.gray))
+                    } else {
+                        // 현재 달의 날짜에만 테두리 적용
+                        if (data.date == date) {
+                            container.calendarDayText.background = textBorder
+                            textDate.text = data.date.format(DateTimeFormatter.ofPattern("M월 d일 E요일", Locale.KOREAN))
+                            updateRecyclerViewWithSchedule(date)
+                        } else {
+                            container.calendarDayText.background = null
                         }
                     }
                 }
