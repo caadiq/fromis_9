@@ -7,8 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.DividerItemDecoration
+import com.beemer.unofficial.fromis_9.adapter.AdapterSchedule
+import com.beemer.unofficial.fromis_9.api.ApiSchedule
+import com.beemer.unofficial.fromis_9.api.ScheduleResponse
+import com.beemer.unofficial.fromis_9.data.DataSchedule
 import com.beemer.unofficial.fromis_9.databinding.FragmentScheduleBinding
 import com.kizitonwose.calendar.core.CalendarDay
 import com.kizitonwose.calendar.core.CalendarMonth
@@ -16,8 +23,12 @@ import com.kizitonwose.calendar.core.DayPosition
 import com.kizitonwose.calendar.view.MonthDayBinder
 import com.kizitonwose.calendar.view.MonthHeaderFooterBinder
 import com.kizitonwose.calendar.view.ViewContainer
+import kotlinx.coroutines.launch
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.time.DayOfWeek
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 import java.time.format.TextStyle
@@ -25,11 +36,12 @@ import java.time.temporal.WeekFields
 import java.util.Locale
 
 class DayViewContainer(view: View) : ViewContainer(view) {
-    val textView: TextView = view.findViewById(R.id.calendarDayText)
+    val calendarDayText: TextView = view.findViewById(R.id.calendarDayText)
+    val calendarDayDot: TextView = view.findViewById(R.id.calendarDayDot)
 }
 
 class MonthHeaderViewContainer(view: View) : ViewContainer(view) {
-    val textView = listOf<TextView>(
+    val calendarWeekText = listOf<TextView>(
         view.findViewById(R.id.sunday),
         view.findViewById(R.id.monday),
         view.findViewById(R.id.tuesday),
@@ -48,6 +60,21 @@ class FragmentSchedule : Fragment() {
     private val calendarYearMonth by lazy { binding.calendarYearMonth }
     private val buttonPrevMonth by lazy { binding.buttonPrevMonth }
     private val buttonNextMonth by lazy { binding.buttonNextMonth }
+    private val textDate by lazy { binding.textDate }
+    private val textNoSchedule by lazy { binding.textNoSchedule }
+    private val recyclerView by lazy { binding.recyclerView }
+
+    private val adapterSchedule by lazy { AdapterSchedule() }
+    private val scheduleDataMap = mutableMapOf<LocalDate, List<DataSchedule>>()
+
+    private val scheduleApi: ApiSchedule by lazy {
+        val scheduleUrl = BuildConfig.SCHEDULE_API
+        val retrofit = Retrofit.Builder()
+            .baseUrl(scheduleUrl)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+        retrofit.create(ApiSchedule::class.java)
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -62,6 +89,12 @@ class FragmentSchedule : Fragment() {
         val firstDayOfWeek = WeekFields.of(Locale.getDefault()).firstDayOfWeek
         val textBorder = ContextCompat.getDrawable(activityMain, R.drawable.drawable_calendar_border_today)
 
+        getScheduleFromApi(date.year, date.monthValue)
+        recyclerView.apply {
+            adapter = adapterSchedule
+            addItemDecoration(ItemDecoratorDivider(20, 0, 0, 0, Color.GRAY, 1, 10))
+        }
+
         calendarView.apply {
             setup(startMonth, endMonth, firstDayOfWeek)
             scrollToMonth(nowMonth) // 현재 달이 보이게 하기
@@ -71,7 +104,7 @@ class FragmentSchedule : Fragment() {
                 override fun create(view: View) = DayViewContainer(view)
 
                 override fun bind(container: DayViewContainer, data: CalendarDay) {
-                    container.textView.text = data.date.dayOfMonth.toString()
+                    container.calendarDayText.text = data.date.dayOfMonth.toString()
 
                     // 날짜 클릭 이벤트
                     if (data.position == DayPosition.MonthDate) { // 현재 달의 날짜만 클릭 가능
@@ -89,22 +122,31 @@ class FragmentSchedule : Fragment() {
                         }
                     }
 
+                    // 일정이 있는 날에만 점 표시
+                    if (scheduleDataMap.containsKey(data.date) && scheduleDataMap[data.date]!!.isNotEmpty()) {
+                        container.calendarDayDot.visibility = View.VISIBLE
+                    } else {
+                        container.calendarDayDot.visibility = View.GONE
+                    }
+
                     // 날짜에 스타일 적용
                     if (data.date == date) {
-                        container.textView.background = textBorder // 해당 날짜(초깃값은 오늘, 날짜 클릭 시 클릭한 날짜)에 테두리 추가
+                        container.calendarDayText.background = textBorder // 해당 날짜(초깃값은 오늘, 날짜 클릭 시 클릭한 날짜)에 테두리 추가
+                        textDate.text = data.date.format(DateTimeFormatter.ofPattern("M월 d일 E요일", Locale.KOREAN))
+                        updateRecyclerViewWithSchedule(date)
                     } else {
-                        container.textView.background = null
+                        container.calendarDayText.background = null
 
                         // 요일에 따른 글씨 색상 변경
                         when (data.date.dayOfWeek) {
-                            DayOfWeek.SATURDAY -> container.textView.setTextColor(ContextCompat.getColor(activityMain, R.color.blue)) // 토요일
-                            DayOfWeek.SUNDAY -> container.textView.setTextColor(ContextCompat.getColor(activityMain, R.color.red)) // 일요일
-                            else -> container.textView.setTextColor(Color.BLACK) // 평일
+                            DayOfWeek.SATURDAY -> container.calendarDayText.setTextColor(ContextCompat.getColor(activityMain, R.color.blue)) // 토요일
+                            DayOfWeek.SUNDAY -> container.calendarDayText.setTextColor(ContextCompat.getColor(activityMain, R.color.red)) // 일요일
+                            else -> container.calendarDayText.setTextColor(Color.BLACK) // 평일
                         }
 
                         // 지난달과 다음달 날짜 글씨 색상 변경
                         if (data.position == DayPosition.OutDate || data.position == DayPosition.InDate) {
-                            container.textView.setTextColor(ContextCompat.getColor(activityMain, R.color.gray))
+                            container.calendarDayText.setTextColor(ContextCompat.getColor(activityMain, R.color.gray))
                         }
                     }
                 }
@@ -119,17 +161,21 @@ class FragmentSchedule : Fragment() {
                 override fun bind(container: MonthHeaderViewContainer, data: CalendarMonth) {
                     val daysOfWeek = DayOfWeek.entries.toTypedArray()
                     for (i in daysOfWeek.indices) {
-                        val dayName = daysOfWeek[i].getDisplayName(TextStyle.SHORT, Locale.getDefault())
-                        container.textView[i].text = dayName
+                        val dayName = daysOfWeek[i].getDisplayName(TextStyle.SHORT, Locale.KOREAN)
+                        container.calendarWeekText[i].text = dayName
                     }
                 }
             }
 
             // 달력 스크롤 이벤트
             monthScrollListener = {
-                val formatter = DateTimeFormatter.ofPattern("yyyy년 MM월", Locale.getDefault())
-                val title = it.yearMonth.format(formatter)
-                calendarYearMonth.text = title
+                val formatYear = DateTimeFormatter.ofPattern("yyyy", Locale.getDefault())
+                val formatMonth = DateTimeFormatter.ofPattern("MM", Locale.getDefault())
+                val year = it.yearMonth.format(formatYear).toInt()
+                val month = it.yearMonth.format(formatMonth).toInt()
+                calendarYearMonth.text = getString(R.string.str_fragment_schedule_calendar_title, "$year", "$month")
+
+                getScheduleFromApi(year, month)
             }
         }
 
@@ -148,5 +194,54 @@ class FragmentSchedule : Fragment() {
         }
 
         return binding.root
+    }
+
+    private fun getScheduleFromApi(year: Int, month: Int) {
+        lifecycleScope.launch {
+            try {
+                val schedules = scheduleApi.getSchedules(year, month)
+                saveScheduleData(schedules)
+            } catch (e: Exception) {
+                Toast.makeText(activityMain, "일정을 불러오는 데 실패했습니다.", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun saveScheduleData(schedules: List<ScheduleResponse>) {
+        scheduleDataMap.clear() // map 초기화
+
+        // map에 일정 데이터 저장
+        schedules.forEach { schedule ->
+            val dateTime = LocalDateTime.parse(schedule.date, DateTimeFormatter.ISO_DATE_TIME)
+            val time = dateTime.format(DateTimeFormatter.ofPattern("HH:mm"))
+
+            val dataSchedule = DataSchedule(
+                time = time,
+                title = schedule.title,
+                description = schedule.description,
+                image = schedule.platformIcon.imageUrl
+            )
+
+            val scheduleList = scheduleDataMap.getOrDefault(dateTime.toLocalDate(), mutableListOf()).toMutableList()
+            scheduleList.add(dataSchedule)
+            scheduleDataMap[dateTime.toLocalDate()] = scheduleList
+        }
+
+        calendarView.notifyCalendarChanged()
+    }
+
+    // 선택한 날짜에 해당하는 일정을 RecyclerView에 표시
+    private fun updateRecyclerViewWithSchedule(date: LocalDate) {
+        val scheduleForDate = scheduleDataMap[date] ?: emptyList()
+        adapterSchedule.itemList = scheduleForDate.toMutableList()
+        adapterSchedule.notifyDataSetChanged()
+
+        if (scheduleForDate.isEmpty()) {
+            textNoSchedule.visibility = View.VISIBLE
+            recyclerView.visibility = View.GONE
+        } else {
+            textNoSchedule.visibility = View.GONE
+            recyclerView.visibility = View.VISIBLE
+        }
     }
 }
