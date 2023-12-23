@@ -66,6 +66,9 @@ class FragmentSchedule : Fragment() {
     private val adapterSchedule by lazy { AdapterSchedule() }
     private val scheduleDataMap = mutableMapOf<LocalDate, List<DataSchedule>>()
 
+    private var date: LocalDate = LocalDate.now()
+    private var isFirstLoad = true
+
     private val scheduleApi: ApiSchedule by lazy {
         val scheduleUrl = BuildConfig.SCHEDULE_API
         val retrofit = Retrofit.Builder()
@@ -81,14 +84,12 @@ class FragmentSchedule : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        var date: LocalDate = LocalDate.now()
         val nowMonth = YearMonth.now()
         val startMonth = nowMonth.minusMonths(100)
         val endMonth = nowMonth.plusMonths(100)
         val firstDayOfWeek = WeekFields.of(Locale.getDefault()).firstDayOfWeek
         val textBorder = ContextCompat.getDrawable(activityMain, R.drawable.drawable_calendar_border_today)
 
-        getScheduleFromApi(date.year, date.monthValue)
         recyclerView.apply {
             adapter = adapterSchedule
             addItemDecoration(ItemDecoratorDivider(20, 0, 0, 0, Color.GRAY, 1, 10))
@@ -106,18 +107,19 @@ class FragmentSchedule : Fragment() {
                     container.calendarDayText.text = data.date.dayOfMonth.toString()
 
                     // 날짜 클릭 이벤트
-                    if (data.position == DayPosition.MonthDate) { // 현재 달의 날짜만 클릭 가능
-                        container.view.setOnClickListener {
-                            if (data.date != date) {
-                                val prevDate = date
-                                date = data.date
+                    container.view.setOnClickListener {
+                        if (data.position == DayPosition.MonthDate && data.date != date) {
+                            val prevDate = date
+                            date = data.date
 
-                                // 이전에 선택되어 있던 날짜의 뷰 업데이트
-                                prevDate.let { calendarView.notifyDateChanged(it) }
+                            // 이전에 선택되어 있던 날짜의 뷰 업데이트
+                            prevDate.let { calendarView.notifyDateChanged(it) }
 
-                                // 새로 선택한 날짜의 뷰 업데이트
-                                calendarView.notifyDateChanged(data.date)
-                            }
+                            // 새로 선택한 날짜의 뷰 업데이트
+                            calendarView.notifyDateChanged(data.date)
+
+                            setSchedule(date)
+                            setScheduleVisibility(date)
                         }
                     }
 
@@ -126,13 +128,6 @@ class FragmentSchedule : Fragment() {
                         DayOfWeek.SATURDAY -> container.calendarDayText.setTextColor(ContextCompat.getColor(activityMain, R.color.blue)) // 토요일
                         DayOfWeek.SUNDAY -> container.calendarDayText.setTextColor(ContextCompat.getColor(activityMain, R.color.red)) // 일요일
                         else -> container.calendarDayText.setTextColor(Color.BLACK) // 평일
-                    }
-
-                    // 일정이 있는 날에만 점 표시
-                    if (scheduleDataMap.containsKey(data.date) && scheduleDataMap[data.date]!!.isNotEmpty()) {
-                        container.calendarDayDot.visibility = View.VISIBLE
-                    } else {
-                        container.calendarDayDot.visibility = View.GONE
                     }
 
                     // 지난달과 다음달 날짜 글씨 색상 및 배경 변경
@@ -144,9 +139,15 @@ class FragmentSchedule : Fragment() {
                         if (data.date == date) {
                             container.calendarDayText.background = textBorder
                             textDate.text = data.date.format(DateTimeFormatter.ofPattern("M월 d일 E요일", Locale.KOREAN))
-                            updateRecyclerViewWithSchedule(date)
                         } else {
                             container.calendarDayText.background = null
+                        }
+
+                        // 일정이 있는 날에만 점 표시
+                        if (scheduleDataMap.containsKey(data.date) && scheduleDataMap[data.date]!!.isNotEmpty()) {
+                            container.calendarDayDot.visibility = View.VISIBLE
+                        } else {
+                            container.calendarDayDot.visibility = View.GONE
                         }
                     }
                 }
@@ -228,15 +229,24 @@ class FragmentSchedule : Fragment() {
         }
 
         calendarView.notifyCalendarChanged()
+
+        if (isFirstLoad) {
+            isFirstLoad = false
+            setSchedule(date)
+            setScheduleVisibility(date)
+        }
     }
 
     // 선택한 날짜에 해당하는 일정을 RecyclerView에 표시
-    private fun updateRecyclerViewWithSchedule(date: LocalDate) {
+    private fun setSchedule(date: LocalDate) {
         val scheduleForDate = scheduleDataMap[date] ?: emptyList()
         adapterSchedule.itemList = scheduleForDate.toMutableList()
         adapterSchedule.notifyDataSetChanged()
+    }
 
-        if (scheduleForDate.isEmpty()) {
+
+    private fun setScheduleVisibility(selectedDate: LocalDate) {
+        if (scheduleDataMap[selectedDate].isNullOrEmpty()) {
             textNoSchedule.visibility = View.VISIBLE
             recyclerView.visibility = View.GONE
         } else {
