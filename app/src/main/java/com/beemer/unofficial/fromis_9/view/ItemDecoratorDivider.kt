@@ -1,4 +1,4 @@
-package com.beemer.unofficial.fromis_9
+package com.beemer.unofficial.fromis_9.view
 
 import android.graphics.Canvas
 import android.graphics.Paint

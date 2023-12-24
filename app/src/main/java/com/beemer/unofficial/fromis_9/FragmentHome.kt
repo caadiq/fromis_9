@@ -1,6 +1,7 @@
 package com.beemer.unofficial.fromis_9
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -54,7 +55,10 @@ class FragmentHome : Fragment() {
             notifyDataSetChanged()
 
             setOnItemClickListener { _, position ->
-                Toast.makeText(activityMain, "$position", Toast.LENGTH_SHORT).show()
+                when (position) {
+                    0 -> Toast.makeText(context, "프로미스나인", Toast.LENGTH_SHORT).show()
+                    1 -> startActivity(Intent(activityMain, ActivityAlbum::class.java))
+                }
             }
         }
 

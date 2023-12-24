@@ -16,6 +16,7 @@ import com.beemer.unofficial.fromis_9.api.ApiSchedule
 import com.beemer.unofficial.fromis_9.api.ScheduleResponse
 import com.beemer.unofficial.fromis_9.data.DataSchedule
 import com.beemer.unofficial.fromis_9.databinding.FragmentScheduleBinding
+import com.beemer.unofficial.fromis_9.view.ItemDecoratorDivider
 import com.kizitonwose.calendar.core.CalendarDay
 import com.kizitonwose.calendar.core.CalendarMonth
 import com.kizitonwose.calendar.core.DayPosition
