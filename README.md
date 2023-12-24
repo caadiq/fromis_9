@@ -12,12 +12,14 @@
 
 ## 개발 기간
 
-- 2023.12.20 ~ 
+2023.12.20 ~ 
 
 </br>
 
 ## 개발 환경
 
-<img src="https://img.shields.io/badge/Kotlin-7F52FF?style=for-the-badge&logo=Kotlin&logoColor=white">
+- #### Language
+　　<img src="https://img.shields.io/badge/Kotlin-7F52FF?style=for-the-badge&logo=Kotlin&logoColor=white">
 
-<img src="https://img.shields.io/badge/Android Studio-3DDC84?style=for-the-badge&logo=Android Studio&logoColor=white">
+- #### IDEA
+　　<img src="https://img.shields.io/badge/Android Studio-3DDC84?style=for-the-badge&logo=Android Studio&logoColor=white">
