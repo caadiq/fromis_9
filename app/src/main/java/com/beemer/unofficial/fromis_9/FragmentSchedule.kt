@@ -94,6 +94,7 @@ class FragmentSchedule : Fragment() {
         recyclerView.apply {
             adapter = adapterSchedule
             addItemDecoration(ItemDecoratorDivider(20, 0, 0, 0, Color.GRAY, 1, 10))
+            itemAnimator = null
         }
 
         calendarView.apply {
@@ -209,10 +210,11 @@ class FragmentSchedule : Fragment() {
         }
     }
 
+    // 일정 데이터를 날짜별로 분류해서 map에 저장
     private fun saveScheduleData(schedules: List<ScheduleResponse>) {
         scheduleDataMap.clear() // map 초기화
 
-        // map에 일정 데이터 저장
+        // map에 날짜별로 일정 데이터 저장
         schedules.forEach { schedule ->
             val dateTime = LocalDateTime.parse(schedule.date, DateTimeFormatter.ISO_DATE_TIME)
             val time = dateTime.format(DateTimeFormatter.ofPattern("HH:mm"))
@@ -241,11 +243,10 @@ class FragmentSchedule : Fragment() {
     // 선택한 날짜에 해당하는 일정을 RecyclerView에 표시
     private fun setSchedule(date: LocalDate) {
         val scheduleForDate = scheduleDataMap[date] ?: emptyList()
-        adapterSchedule.itemList = scheduleForDate.toMutableList()
-        adapterSchedule.notifyDataSetChanged()
+        adapterSchedule.setSchedule(scheduleForDate)
     }
 
-
+    // 선택한 날짜에 일정이 없으면 일정이 없다는 텍스트 표시
     private fun setScheduleVisibility(selectedDate: LocalDate) {
         if (scheduleDataMap[selectedDate].isNullOrEmpty()) {
             textNoSchedule.visibility = View.VISIBLE

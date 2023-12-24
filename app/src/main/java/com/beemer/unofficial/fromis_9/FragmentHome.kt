@@ -51,9 +51,7 @@ class FragmentHome : Fragment() {
         }
 
         adapterHome.apply {
-            itemList = homeItemList
-            notifyDataSetChanged()
-
+            setHome(homeItemList)
             setOnItemClickListener { _, position ->
                 when (position) {
                     0 -> Toast.makeText(context, "프로미스나인", Toast.LENGTH_SHORT).show()

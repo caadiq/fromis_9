@@ -2,58 +2,49 @@ package com.beemer.unofficial.fromis_9
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.beemer.unofficial.fromis_9.databinding.ActivityAlbumBinding
-import com.beemer.unofficial.fromis_9.preference.Preference
+import com.beemer.unofficial.fromis_9.datastore.Preferences
+import kotlinx.coroutines.launch
 
 
 class ActivityAlbum : AppCompatActivity() {
     private val binding by lazy { ActivityAlbumBinding.inflate(layoutInflater) }
 
     private val btnToggleGroup by lazy { binding.btnToggleGroup }
-    private val btnRelease by lazy { binding.btnRelease }
-    private val btnTitle by lazy { binding.btnTitle }
-    private val btnClassify by lazy { binding.btnClassify }
     private val btnSort by lazy { binding.btnSort }
 
-    private val preference by lazy { Preference }
+    private val preference by lazy { Preferences }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        btnToggleGroup.apply {
-            check(
-                when (preference.sortBy) {
-                    "release" -> btnRelease.id
-                    "title" -> btnTitle.id
-                    "classify" -> btnClassify.id
-                    else -> btnRelease.id
-                }
-            )
+        // preference값 가져와서 버튼 상태 설정
+        lifecycleScope.launch {
+            val currentSortBy = preference.getSortBy(this@ActivityAlbum)
+            val currentIsAscending = preference.getIsAscending(this@ActivityAlbum)
+            btnToggleGroup.check(if (currentSortBy == 0) btnToggleGroup.getChildAt(0).id else currentSortBy)
+            setOrderButtonImage(currentIsAscending)
+        }
 
-            addOnButtonCheckedListener { _, checkedId, isChecked ->
-                if (isChecked) {
-                    val selected = when (checkedId) {
-                        btnRelease.id -> "release"
-                        btnTitle.id -> "title"
-                        btnClassify.id -> "classify"
-                        else -> preference.sortBy
-                    }
-                    preference.sortBy = selected
-                }
+        btnToggleGroup.addOnButtonCheckedListener { _, checkedId, _ ->
+            lifecycleScope.launch {
+                preference.setSortBy(this@ActivityAlbum, checkedId)
             }
         }
 
-        btnSort.apply {
-            setSortButtonImage()
-            setOnClickListener {
-                preference.isAscending = !preference.isAscending
-                setSortButtonImage()
+        btnSort.setOnClickListener {
+            lifecycleScope.launch {
+                val isAscending = preference.getIsAscending(this@ActivityAlbum)
+                preference.setIsAscending(this@ActivityAlbum, !isAscending)
+                setOrderButtonImage(!isAscending)
             }
         }
     }
 
-    private fun setSortButtonImage() {
-        btnSort.setImageResource(if (preference.isAscending) R.drawable.icon_ascending else R.drawable.icon_descending)
+    // 오름차순-내림차순 버튼 이미지 변경
+    private fun setOrderButtonImage(isAscending: Boolean) {
+        btnSort.setImageResource(if (isAscending) R.drawable.icon_ascending else R.drawable.icon_descending)
     }
 }

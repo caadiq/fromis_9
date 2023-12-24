@@ -5,13 +5,15 @@ import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.beemer.unofficial.fromis_9.data.DataSchedule
 import com.beemer.unofficial.fromis_9.databinding.RowScheduleBinding
+import com.beemer.unofficial.fromis_9.diff.ScheduleDiffUtil
 import com.bumptech.glide.Glide
 
 class AdapterSchedule : RecyclerView.Adapter<AdapterSchedule.ViewHolder>() {
-    var itemList = mutableListOf<DataSchedule>()
+    private var itemList = mutableListOf<DataSchedule>()
 
     override fun getItemCount(): Int = itemList.size
 
@@ -38,5 +40,14 @@ class AdapterSchedule : RecyclerView.Adapter<AdapterSchedule.ViewHolder>() {
                 binding.description.visibility = View.VISIBLE
             }
         }
+    }
+
+    fun setSchedule(newSchedule: List<DataSchedule>) {
+        val diffCallback = ScheduleDiffUtil(itemList, newSchedule)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+
+        itemList.clear()
+        itemList.addAll(newSchedule)
+        diffResult.dispatchUpdatesTo(this)
     }
 }
