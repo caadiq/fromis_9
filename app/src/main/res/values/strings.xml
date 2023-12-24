@@ -3,8 +3,13 @@
     <string name="app_name">fromis_9</string>
 
     <!-- - - - - - - - - - - - - - - - - - - - - - Layout - - - - - - - - - - - - - - - - - - - - - - -->
+    <!-- activity_album -->
+    <string name="str_activity_album_sort_release">발매일</string>
+    <string name="str_activity_album_sort_title">타이틀</string>
+    <string name="str_activity_album_sort_classify">분류</string>
     <!-- fragment_schedule -->
     <string name="str_fragment_schedule_no_schedule">일정이 없습니다.</string>
+    <!-- calendar_day -->
     <string name="str_calendar_day_dot">●</string>
 
     <!-- - - - - - - - - - - - - - - - - - - - - - Class - - - - - - - - - - - - - - - - - - - - - - -->

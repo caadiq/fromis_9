@@ -1,5 +1,5 @@
 <resources>
-    <!-- 기본 테마 -->
+    <!-- - - - - - - - - - - - - - - - - - - - - - 기본 테마 - - - - - - - - - - - - - - - - - - - - - - -->
     <style name="Base.Theme.Fromis_9" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorOnPrimary">@color/colorOnPrimary</item>
@@ -16,11 +16,13 @@
 
     <style name="Theme.Fromis_9" parent="Base.Theme.Fromis_9" />
 
-    <!-- 커스텀 스타일 -->
+    <!-- - - - - - - - - - - - - - - - - - - - - - 커스텀 스타일 - - - - - - - - - - - - - - - - - - - - - - -->
+    <!-- Toolbar -->
     <style name="StyleToolbar" parent="ThemeOverlay.AppCompat.Light">
         <item name="android:background">@android:color/transparent</item>
     </style>
 
+    <!-- SmoothBottomBar -->
     <style name="StyleSmoothBottomBar">
         <item name="backgroundColor">@android:color/transparent</item>
         <item name="iconSize">26dp</item>
@@ -31,6 +33,7 @@
         <item name="textSize">18dp</item>
     </style>
 
+    <!-- CardView -->
     <style name="StyleCardView" parent="Widget.MaterialComponents.CardView">
         <item name="android:backgroundTint">@color/white</item>
         <item name="cardCornerRadius">8dp</item>
@@ -38,5 +41,14 @@
         <item name="cardUseCompatPadding">true</item>
         <item name="rippleColor">@android:color/transparent</item>
         <item name="strokeWidth">0dp</item>
+    </style>
+
+    <!-- ToggleButton -->
+    <style name="StyleToggleButton" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:backgroundTint">@android:color/transparent</item>
+        <item name="android:fontFamily">@font/nanum_square_round_extra_bold</item>
+        <item name="android:textColor">@color/color_togglebutton_text</item>
+        <item name="android:textSize">14dp</item>
+        <item name="strokeColor">@color/color_togglebutton_border</item>
     </style>
 </resources>
