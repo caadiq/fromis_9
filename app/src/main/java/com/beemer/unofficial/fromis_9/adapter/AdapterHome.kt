@@ -4,9 +4,11 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.beemer.unofficial.fromis_9.data.DataHome
 import com.beemer.unofficial.fromis_9.databinding.RowHomeBinding
+import com.beemer.unofficial.fromis_9.diff.HomeDiffUtil
 import com.bumptech.glide.Glide
 
 class AdapterHome : RecyclerView.Adapter<AdapterHome.ViewHolder>() {
@@ -43,5 +45,14 @@ class AdapterHome : RecyclerView.Adapter<AdapterHome.ViewHolder>() {
 
     fun setOnItemClickListener(listener: (DataHome, Int) -> Unit) {
         onItemClickListener = listener
+    }
+
+    fun setHome(newHome: List<DataHome>) {
+        val diffCallback = HomeDiffUtil(itemList, newHome)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+
+        itemList.clear()
+        itemList.addAll(newHome)
+        diffResult.dispatchUpdatesTo(this)
     }
 }
