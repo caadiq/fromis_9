@@ -34,14 +34,14 @@
     <color name="colorTalkAndTalkPrimary">#71C4D4</color>
     <color name="colorTalkAndTalkSecondary">#405364</color>
     <!-- 9 WAY TICKET -->
-    <color name="color9WayTicketPrimary">#d7d8da</color>
+    <color name="color9WayTicketPrimary">#D7D8DA</color>
     <color name="color9WayTicketSecondary">#8D6D54</color>
     <!-- My Little Society -->
     <color name="colorMyLittleSocietyPrimary">#0080CB</color>
     <color name="colorMyLittleSocietySecondary">#FFFFFF</color>
     <!-- FUN FACTORY -->
     <color name="colorFunFactoryPrimary">#F14E9D</color>
-    <color name="colorFunFactorySecondary">#fc8e1e</color>
+    <color name="colorFunFactorySecondary">#FC8E1E</color>
     <!-- From.9 -->
     <color name="colorFrom9Primary">#9B89C7</color>
     <color name="colorFrom9Secondary">#FFFFFF</color>

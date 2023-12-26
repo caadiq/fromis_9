@@ -216,14 +216,14 @@ class FragmentSchedule : Fragment() {
 
         // map에 날짜별로 일정 데이터 저장
         schedules.forEach { schedule ->
-            val dateTime = LocalDateTime.parse(schedule.date, DateTimeFormatter.ISO_DATE_TIME)
+            val dateTime = LocalDateTime.parse(schedule.dateTime, DateTimeFormatter.ISO_DATE_TIME)
             val time = dateTime.format(DateTimeFormatter.ofPattern("HH:mm"))
 
             val dataSchedule = DataSchedule(
                 time = time,
-                title = schedule.title,
+                schedule = schedule.schedule,
                 description = schedule.description,
-                image = schedule.platformIcon.imageUrl
+                image = schedule.icon.imageUrl
             )
 
             val scheduleList = scheduleDataMap.getOrDefault(dateTime.toLocalDate(), mutableListOf()).toMutableList()

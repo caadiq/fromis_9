@@ -43,6 +43,7 @@ class FragmentHome : Fragment() {
         recyclerView.apply {
             layoutManager = gridLayoutmanager
             adapter = adapterHome
+            itemAnimator = null
         }
 
         homeItemList.apply {

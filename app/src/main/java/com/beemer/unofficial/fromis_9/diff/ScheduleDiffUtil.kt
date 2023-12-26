@@ -15,7 +15,7 @@ class ScheduleDiffUtil(private val oldList: List<DataSchedule>, private val newL
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         val oldItem = oldList[oldItemPosition]
         val newItem = newList[newItemPosition]
-        return oldItem.time == newItem.time && oldItem.title == newItem.title && oldItem.description == newItem.description && oldItem.image == newItem.image
+        return oldItem.time == newItem.time && oldItem.schedule == newItem.schedule && oldItem.description == newItem.description && oldItem.image == newItem.image
     }
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
