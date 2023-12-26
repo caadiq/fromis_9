@@ -5,7 +5,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface ApiSchedule {
-    @GET("schedules?")
+    @GET("schedulelist?")
     suspend fun getSchedules(
         @Query("year") year: Int?,
         @Query("month") month: Int?
@@ -14,13 +14,13 @@ interface ApiSchedule {
 
 data class ScheduleResponse(
     val id: Long,
-    val date: String,
-    val title: String,
+    val dateTime: String,
+    val schedule: String,
     val description: String?,
-    @SerializedName("platformIcon") val platformIcon: PlatformIcon
+    @SerializedName("icon") val icon: Icon
 )
 
-data class PlatformIcon(
+data class Icon(
     val platform: String,
     val imageUrl: String
 )

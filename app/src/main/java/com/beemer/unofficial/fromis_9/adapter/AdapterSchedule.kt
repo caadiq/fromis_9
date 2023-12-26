@@ -29,10 +29,9 @@ class AdapterSchedule : RecyclerView.Adapter<AdapterSchedule.ViewHolder>() {
 
     inner class ViewHolder(private val binding: RowScheduleBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: DataSchedule) {
-            Glide.with(binding.root).load(item.image).placeholder(ColorDrawable(Color.TRANSPARENT)).into(binding.image)
-            binding.title.text = item.title
+            Glide.with(binding.root).load(item.image).placeholder(ColorDrawable(Color.TRANSPARENT)).into(binding.icon)
+            binding.schedule.text = item.schedule
             binding.time.text = item.time
-
             if (item.description.isNullOrEmpty()) {
                 binding.description.visibility = View.GONE
             } else {
