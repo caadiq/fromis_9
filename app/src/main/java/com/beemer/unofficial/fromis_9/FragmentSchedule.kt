@@ -71,9 +71,9 @@ class FragmentSchedule : Fragment() {
     private var isFirstLoad = true
 
     private val scheduleApi: ApiSchedule by lazy {
-        val scheduleUrl = BuildConfig.SCHEDULE_API
+        val apiUrl = BuildConfig.API_URL
         val retrofit = Retrofit.Builder()
-            .baseUrl(scheduleUrl)
+            .baseUrl(apiUrl)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         retrofit.create(ApiSchedule::class.java)
@@ -88,7 +88,7 @@ class FragmentSchedule : Fragment() {
         val nowMonth = YearMonth.now()
         val startMonth = nowMonth.minusMonths(100)
         val endMonth = nowMonth.plusMonths(100)
-        val firstDayOfWeek = WeekFields.of(Locale.getDefault()).firstDayOfWeek
+        val firstDayOfWeek = WeekFields.of(DayOfWeek.SUNDAY, 1).firstDayOfWeek
         val textBorder = ContextCompat.getDrawable(activityMain, R.drawable.drawable_calendar_border_today)
 
         recyclerView.apply {
@@ -162,10 +162,15 @@ class FragmentSchedule : Fragment() {
                 }
 
                 override fun bind(container: MonthHeaderViewContainer, data: CalendarMonth) {
-                    val daysOfWeek = DayOfWeek.entries.toTypedArray()
-                    for (i in daysOfWeek.indices) {
-                        val dayName = daysOfWeek[i].getDisplayName(TextStyle.SHORT, Locale.KOREAN)
-                        container.calendarWeekText[i].text = dayName
+                    val daysOfWeek = arrayOf(
+                        DayOfWeek.SUNDAY, DayOfWeek.MONDAY, DayOfWeek.TUESDAY,
+                        DayOfWeek.WEDNESDAY, DayOfWeek.THURSDAY, DayOfWeek.FRIDAY,
+                        DayOfWeek.SATURDAY
+                    )
+
+                    daysOfWeek.forEachIndexed { index, dayOfWeek ->
+                        val dayName = dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.KOREAN)
+                        container.calendarWeekText[index].text = dayName
                     }
                 }
             }
@@ -202,8 +207,8 @@ class FragmentSchedule : Fragment() {
     private fun getScheduleFromApi(year: Int, month: Int) {
         lifecycleScope.launch {
             try {
-                val schedules = scheduleApi.getSchedules(year, month)
-                saveScheduleData(schedules)
+                val scheduleList = scheduleApi.getScheduleList(year, month)
+                saveScheduleData(scheduleList)
             } catch (e: Exception) {
                 Toast.makeText(activityMain, "일정을 불러오는 데 실패했습니다.", Toast.LENGTH_SHORT).show()
             }

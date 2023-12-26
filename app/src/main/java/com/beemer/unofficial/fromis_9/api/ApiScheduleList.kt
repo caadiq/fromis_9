@@ -6,7 +6,7 @@ import retrofit2.http.Query
 
 interface ApiSchedule {
     @GET("schedulelist?")
-    suspend fun getSchedules(
+    suspend fun getScheduleList(
         @Query("year") year: Int?,
         @Query("month") month: Int?
     ): List<ScheduleResponse>

@@ -29,7 +29,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String","SCHEDULE_API", getApi("schedule_api"))
+        buildConfigField("String","API_URL", getApi("API_URL"))
     }
 
     buildTypes {
