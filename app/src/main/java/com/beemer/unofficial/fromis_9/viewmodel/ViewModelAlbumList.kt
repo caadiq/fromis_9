@@ -81,7 +81,7 @@ class ViewModelAlbumList(private val repository: RepositoryAlbumList) : ViewMode
                 }
                 sortAlbumList()
             } catch (_: Exception) {
-                _errorMessage.value = Event("앨범 목록을 불러오는 데 실패했습니다.")
+                _errorMessage.value = Event("앨범 목록을 불러오지 못했습니다.")
             }
         }
     }

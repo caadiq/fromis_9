@@ -7,16 +7,16 @@
     <string name="str_activity_album_sort_release">발매일</string>
     <string name="str_activity_album_sort_title">타이틀</string>
     <string name="str_activity_album_sort_classify">분류</string>
-    <!-- fragment_schedule -->
-    <string name="str_fragment_schedule_no_schedule">일정이 없습니다.</string>
+    <!-- fragment_main_schedule -->
+    <string name="str_fragment_main_schedule_no_schedule">일정이 없습니다.</string>
     <!-- calendar_day -->
     <string name="str_calendar_day_dot">●</string>
 
     <!-- - - - - - - - - - - - - - - - - - - - - - Class - - - - - - - - - - - - - - - - - - - - - - -->
     <!-- ActivityMain -->
     <string name="str_activity_main_press_back">뒤로 가기 버튼을 한 번 더 누르면 종료됩니다.</string>
-    <!-- FragmentSchedule -->
-    <string name="str_fragment_schedule_calendar_title">%1$s년 %2$s월</string>
+    <!-- FragmentMainSchedule -->
+    <string name="str_fragment_main_schedule_calendar_title">%1$s년 %2$s월</string>
 
     <!-- - - - - - - - - - - - - - - - - - - - - - Menu - - - - - - - - - - - - - - - - - - - - - - -->
     <!-- menu_main_bottombar -->

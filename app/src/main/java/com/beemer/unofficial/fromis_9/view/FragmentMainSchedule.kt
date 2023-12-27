@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.beemer.unofficial.fromis_9.R
 import com.beemer.unofficial.fromis_9.adapter.AdapterSchedule
 import com.beemer.unofficial.fromis_9.data.DataSchedule
-import com.beemer.unofficial.fromis_9.databinding.FragmentScheduleBinding
+import com.beemer.unofficial.fromis_9.databinding.FragmentMainScheduleBinding
 import com.beemer.unofficial.fromis_9.repository.RepositoryScheduleList
 import com.beemer.unofficial.fromis_9.service.RetrofitService
 import com.beemer.unofficial.fromis_9.ui.ItemDecoratorDivider
@@ -52,7 +52,7 @@ class MonthHeaderViewContainer(view: View) : ViewContainer(view) {
 }
 
 class FragmentSchedule : Fragment() {
-    private val binding by lazy { FragmentScheduleBinding.inflate(layoutInflater) }
+    private val binding by lazy { FragmentMainScheduleBinding.inflate(layoutInflater) }
     private lateinit var activityMain: ActivityMain
 
     private val viewModel: ViewModelScheduleList by lazy {
@@ -193,7 +193,7 @@ class FragmentSchedule : Fragment() {
                 val formatMonth = DateTimeFormatter.ofPattern("MM", Locale.getDefault())
                 val year = it.yearMonth.format(formatYear).toInt()
                 val month = it.yearMonth.format(formatMonth).toInt()
-                calendarYearMonth.text = getString(R.string.str_fragment_schedule_calendar_title, "$year", "$month")
+                calendarYearMonth.text = getString(R.string.str_fragment_main_schedule_calendar_title, "$year", "$month")
 
                 viewModel.getScheduleList(year, month)
             }

@@ -6,10 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.beemer.unofficial.fromis_9.databinding.FragmentVideoBinding
+import com.beemer.unofficial.fromis_9.databinding.FragmentMainVideoBinding
 
-class FragmentVideo : Fragment() {
-    private val binding by lazy { FragmentVideoBinding.inflate(layoutInflater) }
+class FragmentMainVideo : Fragment() {
+    private val binding by lazy { FragmentMainVideoBinding.inflate(layoutInflater) }
     private lateinit var activityMain: ActivityMain
 
     override fun onAttach(context: Context) {
