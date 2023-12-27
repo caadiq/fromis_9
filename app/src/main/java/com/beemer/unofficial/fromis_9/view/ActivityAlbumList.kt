@@ -1,9 +1,11 @@
-package com.beemer.unofficial.fromis_9
+package com.beemer.unofficial.fromis_9.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.beemer.unofficial.fromis_9.R
 import com.beemer.unofficial.fromis_9.adapter.AdapterAlbumList
 import com.beemer.unofficial.fromis_9.databinding.ActivityAlbumListBinding
 import com.beemer.unofficial.fromis_9.repository.RepositoryAlbumList
@@ -46,6 +48,11 @@ class ActivityAlbumList : AppCompatActivity() {
             }
             isAscending.observe(this@ActivityAlbumList) { setOrderButtonImage(it) }
             albumList.observe(this@ActivityAlbumList) { adapterAlbumList.setAlbumList(it ?: emptyList()) }
+            errorMessage.observe(this@ActivityAlbumList) {
+                it.getContentIfNotHandled()?.let { message ->
+                    Toast.makeText(this@ActivityAlbumList, message, Toast.LENGTH_SHORT).show()
+                }
+            }
         }
 
         btnToggleGroup.addOnButtonCheckedListener { _, checkedId, isChecked ->

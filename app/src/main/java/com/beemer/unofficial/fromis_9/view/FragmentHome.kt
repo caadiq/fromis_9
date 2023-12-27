@@ -1,4 +1,4 @@
-package com.beemer.unofficial.fromis_9
+package com.beemer.unofficial.fromis_9.view
 
 import android.content.Context
 import android.content.Intent
@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup
+import com.beemer.unofficial.fromis_9.R
 import com.beemer.unofficial.fromis_9.adapter.AdapterHome
 import com.beemer.unofficial.fromis_9.data.DataHome
 import com.beemer.unofficial.fromis_9.databinding.FragmentHomeBinding

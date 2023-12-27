@@ -4,15 +4,15 @@ import com.google.gson.annotations.SerializedName
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface ApiSchedule {
+interface ApiScheduleList {
     @GET("schedulelist?")
     suspend fun getScheduleList(
         @Query("year") year: Int?,
         @Query("month") month: Int?
-    ): List<ScheduleResponse>
+    ): List<ScheduleListResponse>
 }
 
-data class ScheduleResponse(
+data class ScheduleListResponse(
     val id: Long,
     val dateTime: String,
     val schedule: String,

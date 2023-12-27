@@ -1,4 +1,4 @@
-package com.beemer.unofficial.fromis_9
+package com.beemer.unofficial.fromis_9.view
 
 import android.content.res.ColorStateList
 import android.graphics.Color
@@ -8,6 +8,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.lifecycle.lifecycleScope
+import com.beemer.unofficial.fromis_9.BuildConfig
+import com.beemer.unofficial.fromis_9.R
 import com.beemer.unofficial.fromis_9.adapter.AdapterAlbumPager
 import com.beemer.unofficial.fromis_9.api.ApiAlbumList
 import com.beemer.unofficial.fromis_9.databinding.ActivityAlbumBinding

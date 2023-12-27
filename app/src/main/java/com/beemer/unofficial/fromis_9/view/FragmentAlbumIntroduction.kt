@@ -1,4 +1,4 @@
-package com.beemer.unofficial.fromis_9
+package com.beemer.unofficial.fromis_9.view
 
 import android.content.Context
 import android.os.Bundle
@@ -6,10 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.beemer.unofficial.fromis_9.databinding.FragmentAlbumTrackBinding
+import com.beemer.unofficial.fromis_9.databinding.FragmentAlbumIntroductionBinding
 
-class FragmentAlbumTrack : Fragment() {
-    private val binding by lazy { FragmentAlbumTrackBinding.inflate(layoutInflater) }
+class FragmentAlbumIntroduction : Fragment() {
+    private val binding by lazy { FragmentAlbumIntroductionBinding.inflate(layoutInflater) }
     private lateinit var activityAlbum: ActivityAlbum
 
     override fun onAttach(context: Context) {

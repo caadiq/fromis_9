@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.beemer.unofficial.fromis_9.data.DataAlbumList
 import com.beemer.unofficial.fromis_9.repository.RepositoryAlbumList
+import com.beemer.unofficial.fromis_9.utils.Event
 import kotlinx.coroutines.launch
 
 class ViewModelFactoryAlbumList(private val repository: RepositoryAlbumList) : ViewModelProvider.Factory {
@@ -28,6 +29,9 @@ class ViewModelAlbumList(private val repository: RepositoryAlbumList) : ViewMode
 
     private val _isAscending = MutableLiveData<Boolean>()
     val isAscending: LiveData<Boolean> = _isAscending
+
+    private val _errorMessage = MutableLiveData<Event<String>>()
+    val errorMessage: LiveData<Event<String>> = _errorMessage
 
     init {
         loadPreferences()
@@ -76,7 +80,9 @@ class ViewModelAlbumList(private val repository: RepositoryAlbumList) : ViewMode
                     )
                 }
                 sortAlbumList()
-            } catch (_: Exception) { }
+            } catch (_: Exception) {
+                _errorMessage.value = Event("앨범 목록을 불러오는 데 실패했습니다.")
+            }
         }
     }
 
