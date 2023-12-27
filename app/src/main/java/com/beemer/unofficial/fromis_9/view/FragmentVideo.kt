@@ -1,4 +1,4 @@
-package com.beemer.unofficial.fromis_9
+package com.beemer.unofficial.fromis_9.view
 
 import android.content.Context
 import android.os.Bundle
@@ -6,15 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.beemer.unofficial.fromis_9.databinding.FragmentAlbumIntroductionBinding
+import com.beemer.unofficial.fromis_9.databinding.FragmentVideoBinding
 
-class FragmentAlbumIntroduction : Fragment() {
-    private val binding by lazy { FragmentAlbumIntroductionBinding.inflate(layoutInflater) }
-    private lateinit var activityAlbum: ActivityAlbum
+class FragmentVideo : Fragment() {
+    private val binding by lazy { FragmentVideoBinding.inflate(layoutInflater) }
+    private lateinit var activityMain: ActivityMain
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        activityAlbum = context as ActivityAlbum
+        activityMain = context as ActivityMain
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {

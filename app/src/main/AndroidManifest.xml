@@ -14,7 +14,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".ActivityMain"
+            android:name=".view.ActivityMain"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -23,10 +23,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ActivityAlbumList"
+            android:name=".view.ActivityAlbumList"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ActivityAlbum"
+            android:name=".view.ActivityAlbum"
             android:screenOrientation="portrait" />
     </application>
 

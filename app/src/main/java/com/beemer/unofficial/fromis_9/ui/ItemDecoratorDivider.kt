@@ -1,4 +1,4 @@
-package com.beemer.unofficial.fromis_9.view
+package com.beemer.unofficial.fromis_9.ui
 
 import android.graphics.Canvas
 import android.graphics.Paint
@@ -11,9 +11,9 @@ class ItemDecoratorDivider(
     private val divBottom: Int,
     private val divLeft: Int,
     private val divRight: Int,
-    private val dividerColor: Int,
     private val dividerHeight: Int,
-    private val dividerMargin: Int
+    private val dividerMargin: Int,
+    dividerColor: Int
 ) : RecyclerView.ItemDecoration() {
 
     private val paint = Paint()
