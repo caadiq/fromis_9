@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
-import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
@@ -12,18 +12,18 @@ import kotlinx.coroutines.flow.map
 val Context.dataStore: DataStore<androidx.datastore.preferences.core.Preferences> by preferencesDataStore(name = "MyPrefs")
 
 object Preferences {
-    private val SORT_BY = intPreferencesKey("sortBy")
+    private val SORT_BY = stringPreferencesKey("sortBy")
     private val IS_ASCENDING = booleanPreferencesKey("isAscending")
 
-    suspend fun setSortBy(context: Context, sortBy: Int) {
+    suspend fun setSortBy(context: Context, sortBy: String) {
         context.dataStore.edit { preferences ->
             preferences[SORT_BY] = sortBy
         }
     }
 
-    suspend fun getSortBy(context: Context): Int {
+    suspend fun getSortBy(context: Context): String {
         return context.dataStore.data.map { preferences ->
-            preferences[SORT_BY] ?: 0
+            preferences[SORT_BY] ?: "release"
         }.first()
     }
 

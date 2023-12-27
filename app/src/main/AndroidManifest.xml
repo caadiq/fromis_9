@@ -25,6 +25,9 @@
         <activity
             android:name=".ActivityAlbumList"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActivityAlbum"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

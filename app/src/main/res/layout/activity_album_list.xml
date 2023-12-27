@@ -40,7 +40,7 @@
                     android:text="@string/str_activity_album_sort_title" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnClassify"
+                    android:id="@+id/btnType"
                     style="@style/StyleToggleButton"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
