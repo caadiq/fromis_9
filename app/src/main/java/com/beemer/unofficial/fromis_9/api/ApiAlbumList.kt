@@ -7,7 +7,8 @@ import retrofit2.http.Query
 interface ApiAlbumList {
     @GET("albumlist")
     suspend fun getAlbumList(
-        @Query("part") part: String
+        @Query("part") part: String,
+        @Query("albumName") albumName: String?
     ): List<AlbumListResponse>
 }
 
@@ -15,10 +16,16 @@ data class AlbumListResponse(
     val albumName: String?,
     val albumType: String?,
     val releaseDate: String?,
+    val colorMain: String?,
     val colorPrimary: String?,
     val colorSecondary: String?,
     @SerializedName("albumArt") val albumArt: AlbumArt?,
-    @SerializedName("albumDescription") val albumDescription: AlbumDescription?
+    @SerializedName("albumDescription") val albumDescription: AlbumDescription?,
+    @SerializedName("songList") val songList: SongListResponse?
+)
+
+data class SongListResponse(
+    @SerializedName("song") val song: List<Song>,
 )
 
 data class AlbumArt(
@@ -29,4 +36,16 @@ data class AlbumArt(
 data class AlbumDescription(
     val albumName: String,
     val description: String
+)
+
+data class Song(
+    val songName: String,
+    val albumName: String,
+    val lyricist: String,
+    val composer: String,
+    val arranger: String,
+    val lyrics: String,
+    val songLength: String,
+    val trackNumber: Int,
+    val title: Boolean
 )

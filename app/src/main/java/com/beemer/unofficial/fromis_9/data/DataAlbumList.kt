@@ -4,6 +4,7 @@ data class DataAlbumList(
     val albumName: String,
     val albumType: String,
     val releaseDate: String,
+    val colorMain: String,
     val colorPrimary: String,
     val colorSecondary: String,
     val albumArt: String
