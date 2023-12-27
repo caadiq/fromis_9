@@ -3,20 +3,26 @@
     <style name="Base.Theme.Fromis_9" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorOnPrimary">@color/colorOnPrimary</item>
-        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
         <item name="colorSecondary">@color/colorSecondary</item>
         <item name="colorOnSecondary">@color/colorOnSecondary</item>
+        <item name="colorSurface">@color/colorSurface</item>
+
+        <item name="android:colorBackground">@color/white</item>
+        <item name="android:fontFamily">@font/nanum_square_round_bold</item>
 
         <item name="android:windowLightStatusBar">true</item>
+        <item name="elevationOverlayEnabled">false</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:colorBackground">@color/white</item>
-
-        <item name="android:fontFamily">@font/nanum_square_round_bold</item>
     </style>
 
-    <style name="Theme.Fromis_9" parent="Base.Theme.Fromis_9" />
+    <style name="Theme.Fromis_9" parent="Base.Theme.Fromis_9">
+        <item name="toolbarStyle">@style/StyleToolbar</item>
+    </style>
 
     <!-- - - - - - - - - - - - - - - - - - - - - - 커스텀 스타일 - - - - - - - - - - - - - - - - - - - - - - -->
+    <style name="StyleToolbar" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
     <!-- SmoothBottomBar -->
     <style name="StyleSmoothBottomBar">
         <item name="backgroundColor">@android:color/transparent</item>
@@ -30,7 +36,6 @@
 
     <!-- CardView -->
     <style name="StyleCardView" parent="Widget.MaterialComponents.CardView">
-        <item name="android:backgroundTint">@color/white</item>
         <item name="cardCornerRadius">8dp</item>
         <item name="cardElevation">4dp</item>
         <item name="cardUseCompatPadding">true</item>
@@ -39,7 +44,7 @@
     </style>
 
     <!-- ToggleButton -->
-    <style name="StyleToggleButton" parent="Widget.Material3.Button.OutlinedButton">
+    <style name="StyleToggleButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="android:backgroundTint">@android:color/transparent</item>
         <item name="android:fontFamily">@font/nanum_square_round_extra_bold</item>
         <item name="android:textColor">@color/color_togglebutton_text</item>

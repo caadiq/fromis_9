@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- 앱 기본 색상 -->
-    <color name="colorPrimary">#DA75A1</color> <!-- 메인 색상 -->
-    <color name="colorOnPrimary">#000000</color> <!-- Primary와 상반되는 색상 -->
-    <color name="colorPrimaryVariant">#FFFFFF</color> <!-- Primary 강조 색상 -->
-    <color name="colorSecondary">#DA75A1</color> <!-- 서브 색상 -->
-    <color name="colorOnSecondary">#FFFFFF</color> <!-- Secondary와 상반되는 색상 -->
+    <color name="colorPrimary">#DA75A1</color> <!-- 주요 색상 -->
+    <color name="colorOnPrimary">#000000</color> <!-- 주요 색상 위에 오는 요소들의 색상 -->
+    <color name="colorSecondary">#DA75A1</color> <!-- 보조 색상 -->
+    <color name="colorOnSecondary">#FFFFFF</color> <!-- 보조 색상 위에 오는 요소들의 색상 -->
+    <color name="colorSurface">#FFFFFF</color> <!-- 카드, 메뉴, 시트 등 UI 표면에 사용되는 색상 -->
 
     <!-- 색상 팔레트 -->
     <color name="black">#000000</color>

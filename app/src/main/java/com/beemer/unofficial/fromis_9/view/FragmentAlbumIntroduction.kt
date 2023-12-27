@@ -12,13 +12,15 @@ class FragmentAlbumIntroduction : Fragment() {
     private val binding by lazy { FragmentAlbumIntroductionBinding.inflate(layoutInflater) }
     private lateinit var activityAlbum: ActivityAlbum
 
+    private val txtDescription by lazy { binding.txtDescription }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         activityAlbum = context as ActivityAlbum
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-
+        activityAlbum.viewModel.description.observe(activityAlbum) { txtDescription.text = it }
 
         return binding.root
     }

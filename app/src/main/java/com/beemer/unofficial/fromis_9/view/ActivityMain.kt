@@ -56,15 +56,15 @@ class ActivityMain : AppCompatActivity() {
 
         onBackPressedDispatcher.addCallback(this, backPressedCallback)
 
-        changeFragment(FragmentHome())
+        changeFragment(FragmentMainHome())
         bottombar.onItemSelected = ::onBottomBarItemSelected
     }
 
     private fun onBottomBarItemSelected(position: Int) {
         changeFragment(
             when (position) {
-                0 -> FragmentHome()
-                1 -> FragmentVideo()
+                0 -> FragmentMainHome()
+                1 -> FragmentMainVideo()
                 else -> FragmentSchedule()
             }
         )

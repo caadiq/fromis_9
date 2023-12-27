@@ -54,7 +54,7 @@ class ViewModelScheduleList(private val repository: RepositoryScheduleList) : Vi
 
                 _scheduleList.value = scheduleDataMap
             } catch (_: Exception) {
-                _errorMessage.value = Event("일정을 불러오는 데 실패했습니다.")
+                _errorMessage.value = Event("일정 목록을 불러오지 못했습니다.")
             }
         }
     }
