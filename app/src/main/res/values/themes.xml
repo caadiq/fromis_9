@@ -23,16 +23,6 @@
     <style name="StyleToolbar" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:background">@android:color/transparent</item>
     </style>
-    <!-- SmoothBottomBar -->
-    <style name="StyleSmoothBottomBar">
-        <item name="backgroundColor">@android:color/transparent</item>
-        <item name="iconSize">26dp</item>
-        <item name="iconTint">@color/dark_gray</item>
-        <item name="iconTintActive">@color/colorPrimary</item>
-        <item name="itemFontFamily">@font/nanum_square_round_bold</item>
-        <item name="textColor">@color/colorPrimary</item>
-        <item name="textSize">18dp</item>
-    </style>
 
     <!-- CardView -->
     <style name="StyleCardView" parent="Widget.MaterialComponents.CardView">
@@ -50,5 +40,10 @@
         <item name="android:textColor">@color/color_togglebutton_text</item>
         <item name="android:textSize">14dp</item>
         <item name="strokeColor">@color/color_togglebutton_border</item>
+    </style>
+
+    <!-- BottomNavigationView ActiveIndicator -->
+    <style name="StyleBottomViewIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">@android:color/transparent</item>
     </style>
 </resources>
