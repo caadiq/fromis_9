@@ -19,10 +19,10 @@
     <string name="str_fragment_main_schedule_calendar_title">%1$s년 %2$s월</string>
 
     <!-- - - - - - - - - - - - - - - - - - - - - - Menu - - - - - - - - - - - - - - - - - - - - - - -->
-    <!-- menu_main_bottombar -->
-    <string name="str_menu_main_bottombar_home">홈</string>
-    <string name="str_menu_main_bottombar_video">영상</string>
-    <string name="str_menu_main_bottombar_schedule">일정</string>
+    <!-- menu_main_bottomnav -->
+    <string name="str_menu_main_bottomnav_home">홈</string>
+    <string name="str_menu_main_bottomnav_video">영상</string>
+    <string name="str_menu_main_bottomnav_schedule">일정</string>
     <!-- menu_main_toolbar -->
     <string name="str_menu_main_toolbar_app_info">앱 정보</string>
 </resources>

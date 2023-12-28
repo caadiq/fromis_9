@@ -1,24 +1,23 @@
 package com.beemer.unofficial.fromis_9.view
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.MenuProvider
-import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.beemer.unofficial.fromis_9.R
 import com.beemer.unofficial.fromis_9.databinding.ActivityMainBinding
+import com.beemer.unofficial.fromis_9.viewmodel.ViewModelFactoryMain
+import com.beemer.unofficial.fromis_9.viewmodel.ViewModelMain
 import com.google.android.material.snackbar.Snackbar
 
 class ActivityMain : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
+    private val viewModel: ViewModelMain by lazy { ViewModelProvider(this, ViewModelFactoryMain())[ViewModelMain::class.java] }
+
     private val toolbar by lazy { binding.toolbar }
-    private val bottombar by lazy { binding.bottombar }
+    private val bottomNav by lazy { binding.bottomNav }
     private val layoutParent by lazy { binding.layoutParent }
-    private val layoutFragment by lazy { binding.layoutFragment }
 
     private var backPressedTime: Long = 0
     private val backPressedCallback = object : OnBackPressedCallback(true) {
@@ -39,38 +38,39 @@ class ActivityMain : AppCompatActivity() {
         toolbar.title = ""
         setSupportActionBar(toolbar)
 
-        addMenuProvider(object : MenuProvider {
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                menuInflater.inflate(R.menu.menu_main_toolbar, menu)
-            }
-
-            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                when (menuItem.itemId) {
-                    R.id.appInfo -> {
-
-                    }
-                }
-                return true
-            }
-        })
-
         onBackPressedDispatcher.addCallback(this, backPressedCallback)
 
-        changeFragment(FragmentMainHome())
-        bottombar.onItemSelected = ::onBottomBarItemSelected
-    }
-
-    private fun onBottomBarItemSelected(position: Int) {
-        changeFragment(
-            when (position) {
-                0 -> FragmentMainHome()
-                1 -> FragmentMainVideo()
-                else -> FragmentSchedule()
+        viewModel.currentFragmentTag.observe(this) { tag ->
+            supportFragmentManager.fragments.forEach { fragment ->
+                supportFragmentManager.beginTransaction().apply {
+                    if (fragment.tag == tag)
+                        show(fragment)
+                    else
+                        hide(fragment)
+                }.commit()
             }
-        )
-    }
+        }
 
-    private fun changeFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction().replace(layoutFragment.id, fragment).commit()
+        bottomNav.setOnItemSelectedListener { item ->
+            viewModel.setCurrentFragmentTag(
+                when (item.itemId) {
+                    R.id.home -> "HOME"
+                    R.id.video -> "VIDEO"
+                    R.id.schedule -> "SCHEDULE"
+                    else -> return@setOnItemSelectedListener false
+                }
+            )
+            true
+        }
+
+        if (savedInstanceState == null) {
+            // 프래그먼트 추가 및 숨기기
+            supportFragmentManager.beginTransaction().apply {
+                add(R.id.layoutFragment, FragmentMainHome(), "HOME")
+                add(R.id.layoutFragment, FragmentMainVideo(), "VIDEO").hide(FragmentMainVideo())
+                add(R.id.layoutFragment, FragmentMainSchedule(), "SCHEDULE").hide(FragmentMainSchedule())
+                commit()
+            }
+        }
     }
 }
