@@ -141,6 +141,7 @@ class FragmentMainSchedule : Fragment() {
 
                     when {
                         data.date.isEqual(LocalDate.now()) -> {
+                            // 오늘 날짜에 대한 특별한 색상 설정
                             container.calendarDayText.setTextColor(colorPrimary)
                         }
                         data.date.dayOfWeek == DayOfWeek.SATURDAY -> {

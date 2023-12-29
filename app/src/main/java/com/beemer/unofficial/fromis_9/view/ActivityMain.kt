@@ -1,7 +1,6 @@
 package com.beemer.unofficial.fromis_9.view
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -17,7 +16,6 @@ class ActivityMain : AppCompatActivity() {
     private val viewModel: ViewModelMain by lazy { ViewModelProvider(this, ViewModelFactoryMain())[ViewModelMain::class.java] }
 
     private val toolbar by lazy { binding.toolbar }
-    private val btnInfo by lazy { binding.btnInfo }
     private val bottomNav by lazy { binding.bottomNav }
     private val layoutParent by lazy { binding.layoutParent }
 
@@ -63,10 +61,6 @@ class ActivityMain : AppCompatActivity() {
                 }
             )
             true
-        }
-
-        btnInfo.setOnClickListener {
-            Toast.makeText(this, "앱 정보", Toast.LENGTH_SHORT).show()
         }
 
         if (savedInstanceState == null) {
