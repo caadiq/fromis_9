@@ -29,14 +29,14 @@ class AdapterSchedule : RecyclerView.Adapter<AdapterSchedule.ViewHolder>() {
 
     inner class ViewHolder(private val binding: RowScheduleBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: DataSchedule) {
-            Glide.with(binding.root).load(item.image).placeholder(ColorDrawable(Color.TRANSPARENT)).into(binding.icon)
-            binding.schedule.text = item.schedule
-            binding.time.text = item.time
+            Glide.with(binding.root).load(item.image).placeholder(ColorDrawable(Color.TRANSPARENT)).into(binding.imgIcon)
+            binding.txtSchedule.text = item.schedule
+            binding.txtTime.text = item.time
             if (item.description.isNullOrEmpty()) {
-                binding.description.visibility = View.GONE
+                binding.txtDescription.visibility = View.GONE
             } else {
-                binding.description.text = item.description
-                binding.description.visibility = View.VISIBLE
+                binding.txtDescription.text = item.description
+                binding.txtDescription.visibility = View.VISIBLE
             }
         }
     }

@@ -1,5 +1,6 @@
 package com.beemer.unofficial.fromis_9.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -65,9 +66,10 @@ class ViewModelAlbumList(private val repository: RepositoryAlbumList) : ViewMode
     }
 
     fun getAlbumList() {
+        Log.d("ViewModelAlbumList", "getAlbumList: called")
         viewModelScope.launch {
             try {
-                val response = repository.getAlbumList("album,albumArt", null)
+                val response = repository.getAlbumList("album,art", null)
                 _albumList.value = response.map {
                     DataAlbumList(
                         albumName = it.albumName ?: "",
@@ -80,7 +82,7 @@ class ViewModelAlbumList(private val repository: RepositoryAlbumList) : ViewMode
                     )
                 }
                 sortAlbumList()
-            } catch (_: Exception) {
+            } catch (e: Exception) {
                 _errorMessage.value = Event("앨범 목록을 불러오지 못했습니다.")
             }
         }

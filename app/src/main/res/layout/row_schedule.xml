@@ -5,7 +5,7 @@
     android:layout_height="wrap_content">
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/icon"
+        android:id="@+id/imgIcon"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
@@ -14,7 +14,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/schedule"
+        android:id="@+id/txtSchedule"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -25,14 +25,14 @@
         android:gravity="start|center_vertical"
         android:textColor="@color/dark_gray"
         android:textSize="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/description"
-        app:layout_constraintEnd_toStartOf="@+id/time"
-        app:layout_constraintStart_toEndOf="@+id/icon"
+        app:layout_constraintBottom_toTopOf="@+id/txtDescription"
+        app:layout_constraintEnd_toStartOf="@+id/txtTime"
+        app:layout_constraintStart_toEndOf="@+id/imgIcon"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_goneMarginBottom="8dp" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/description"
+        android:id="@+id/txtDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -44,12 +44,12 @@
         android:textColor="@color/gray"
         android:textSize="14dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/time"
-        app:layout_constraintStart_toEndOf="@+id/icon"
-        app:layout_constraintTop_toBottomOf="@+id/schedule" />
+        app:layout_constraintEnd_toStartOf="@+id/txtTime"
+        app:layout_constraintStart_toEndOf="@+id/imgIcon"
+        app:layout_constraintTop_toBottomOf="@+id/txtSchedule" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/time"
+        android:id="@+id/txtTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:maxLines="1"

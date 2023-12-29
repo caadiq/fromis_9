@@ -38,8 +38,8 @@ class AdapterHome : RecyclerView.Adapter<AdapterHome.ViewHolder>() {
         }
 
         fun bind(item: DataHome) {
-            Glide.with(binding.root).load(item.image).placeholder(ColorDrawable(Color.TRANSPARENT)).into(binding.image)
-            binding.title.text = item.title
+            Glide.with(binding.root).load(item.image).placeholder(ColorDrawable(Color.TRANSPARENT)).into(binding.imgHome)
+            binding.txtHome.text = item.title
         }
     }
 

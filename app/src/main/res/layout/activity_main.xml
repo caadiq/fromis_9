@@ -23,6 +23,16 @@
             android:textColor="@color/dark_gray"
             android:textSize="26dp" />
 
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btnInfo"
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_gravity="end"
+            android:background="@android:color/transparent"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/icon_clover"
+            app:tint="@color/dark_gray" />
+
     </androidx.appcompat.widget.Toolbar>
 
     <FrameLayout
