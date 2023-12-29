@@ -13,6 +13,7 @@ import com.beemer.unofficial.fromis_9.data.DataAlbumList
 import com.beemer.unofficial.fromis_9.databinding.RowAlbumListBinding
 import com.beemer.unofficial.fromis_9.diff.AlbumListDiffUtil
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 
 class AdapterAlbumList : RecyclerView.Adapter<AdapterAlbumList.ViewHolder>() {
     var itemList = mutableListOf<DataAlbumList>()
@@ -41,9 +42,9 @@ class AdapterAlbumList : RecyclerView.Adapter<AdapterAlbumList.ViewHolder>() {
         }
 
         fun bind(item: DataAlbumList) {
-            Glide.with(binding.root).load(item.albumArt).placeholder(ColorDrawable(Color.TRANSPARENT)).into(binding.albumArt)
-            binding.albumName.text = item.albumName
-            binding.albumType.apply {
+            Glide.with(binding.root).load(item.albumArt).placeholder(ColorDrawable(Color.TRANSPARENT)).transition(DrawableTransitionOptions.withCrossFade()).sizeMultiplier(0.8f).into(binding.imgAlbumArt)
+            binding.txtAlbumName.text = item.albumName
+            binding.txtAlbumType.apply {
                 text = item.albumType
 
                 val colorPrimary = Color.parseColor("#${item.colorPrimary}")
@@ -55,7 +56,7 @@ class AdapterAlbumList : RecyclerView.Adapter<AdapterAlbumList.ViewHolder>() {
                 background = backgroundDrawable
                 setTextColor(colorSecondary)
             }
-            binding.releaseDate.text = item.releaseDate.replace("-", ".")
+            binding.txtReleaseDate.text = item.releaseDate.replace("-", ".")
         }
     }
 

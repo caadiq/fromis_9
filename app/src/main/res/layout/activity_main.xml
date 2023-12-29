@@ -23,25 +23,38 @@
             android:textColor="@color/dark_gray"
             android:textSize="26dp" />
 
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btnInfo"
+            android:layout_width="?attr/actionBarSize"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_gravity="end"
+            android:background="@android:color/transparent"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/icon_clover"
+            app:tint="@color/dark_gray" />
+
     </androidx.appcompat.widget.Toolbar>
 
     <FrameLayout
         android:id="@+id/layoutFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottombar"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNav"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
-    <me.ibrahimsn.lib.SmoothBottomBar
-        android:id="@+id/bottombar"
-        style="@style/StyleSmoothBottomBar"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav"
         android:layout_width="0dp"
         android:layout_height="70dp"
+        android:background="@android:color/transparent"
+        app:itemActiveIndicatorStyle="@style/StyleBottomViewIndicator"
+        app:itemIconTint="@color/color_bottomnav"
+        app:itemTextColor="@color/color_bottomnav"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/menu_main_bottombar" />
+        app:menu="@menu/menu_main_bottomnav" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

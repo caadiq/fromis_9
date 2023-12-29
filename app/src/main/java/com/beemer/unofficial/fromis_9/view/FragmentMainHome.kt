@@ -15,7 +15,7 @@ import com.beemer.unofficial.fromis_9.adapter.AdapterHome
 import com.beemer.unofficial.fromis_9.data.DataHome
 import com.beemer.unofficial.fromis_9.databinding.FragmentMainHomeBinding
 
-class FragmentMainHome : Fragment() {
+class FragmentMainHome() : Fragment() {
     private val binding by lazy { FragmentMainHomeBinding.inflate(layoutInflater) }
     private lateinit var activityMain: ActivityMain
 
@@ -61,7 +61,6 @@ class FragmentMainHome : Fragment() {
                 }
             }
         }
-
         return binding.root
     }
 }

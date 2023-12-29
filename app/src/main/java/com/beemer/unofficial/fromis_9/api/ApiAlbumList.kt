@@ -8,7 +8,7 @@ interface ApiAlbumList {
     @GET("albumlist")
     suspend fun getAlbumList(
         @Query("part") part: String,
-        @Query("albumName") albumName: String?
+        @Query("albumname") albumName: String?
     ): List<AlbumListResponse>
 }
 
@@ -21,10 +21,10 @@ data class AlbumListResponse(
     val colorSecondary: String?,
     @SerializedName("albumArt") val albumArt: AlbumArt?,
     @SerializedName("albumDescription") val albumDescription: AlbumDescription?,
-    @SerializedName("songList") val songList: SongListResponse?
+    @SerializedName("trackList") val trackList: TrackListResponse?
 )
 
-data class SongListResponse(
+data class TrackListResponse(
     @SerializedName("song") val song: List<Song>,
 )
 
@@ -47,5 +47,5 @@ data class Song(
     val lyrics: String,
     val songLength: String,
     val trackNumber: Int,
-    val title: Boolean
+    val titleTrack: Boolean
 )

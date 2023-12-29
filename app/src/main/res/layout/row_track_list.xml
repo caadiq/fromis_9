@@ -3,59 +3,58 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/StyleCardView"
     android:layout_width="match_parent"
-    android:layout_height="180dp"
+    android:layout_height="100dp"
     app:cardCornerRadius="8dp"
-    app:cardElevation="4dp">
+    app:cardElevation="2dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imgAlbumArt"
-            android:layout_width="180dp"
+        <View
+            android:id="@+id/viewTitleTrack"
+            android:layout_width="8dp"
             android:layout_height="0dp"
-            android:adjustViewBounds="true"
-            android:scaleType="fitXY"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/txtAlbumType"
-            android:layout_width="wrap_content"
+            android:id="@+id/txtTrackNumber"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:padding="5dp"
-            android:textSize="12dp"
-            app:layout_constraintStart_toEndOf="@+id/imgAlbumArt"
+            android:gravity="center"
+            android:textColor="@color/gray"
+            android:textSize="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/viewTitleTrack"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/txtAlbumName"
+            android:id="@+id/txtSongName"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_margin="8dp"
-            android:fontFamily="@font/nanum_square_round_extra_bold"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:ellipsize="end"
             android:maxLines="3"
             android:textColor="@color/dark_gray"
-            android:textSize="22dp"
-            app:layout_constraintBottom_toTopOf="@+id/txtReleaseDate"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imgAlbumArt"
-            app:layout_constraintTop_toBottomOf="@+id/txtAlbumType" />
+            android:textSize="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/txtSongLength"
+            app:layout_constraintStart_toEndOf="@+id/txtTrackNumber"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/txtReleaseDate"
+            android:id="@+id/txtSongLength"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="24dp"
             android:textColor="@color/gray"
-            android:textSize="14dp"
+            android:textSize="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
