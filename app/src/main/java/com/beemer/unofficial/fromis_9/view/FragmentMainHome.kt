@@ -50,6 +50,7 @@ class FragmentMainHome() : Fragment() {
         homeItemList.apply {
             add(DataHome(image = R.drawable.image_fromis9, title = "프로미스나인"))
             add(DataHome(image = R.drawable.image_album, title = "앨범"))
+            add(DataHome(image = R.drawable.image_flover, title = "응원법"))
         }
 
         adapterHome.apply {
@@ -58,6 +59,7 @@ class FragmentMainHome() : Fragment() {
                 when (position) {
                     0 -> Toast.makeText(context, "프로미스나인", Toast.LENGTH_SHORT).show()
                     1 -> startActivity(Intent(activityMain, ActivityAlbumList::class.java))
+                    2 -> Toast.makeText(context, "응원법", Toast.LENGTH_SHORT).show()
                 }
             }
         }

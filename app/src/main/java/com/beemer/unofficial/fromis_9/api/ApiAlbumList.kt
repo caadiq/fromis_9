@@ -8,7 +8,8 @@ interface ApiAlbumList {
     @GET("albumlist")
     suspend fun getAlbumList(
         @Query("part") part: String,
-        @Query("albumname") albumName: String?
+        @Query("albumname") albumName: String?,
+        @Query("songname") songName: String?,
     ): List<AlbumListResponse>
 }
 

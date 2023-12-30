@@ -6,11 +6,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.beemer.unofficial.fromis_9.data.DataTrackList
-import com.beemer.unofficial.fromis_9.repository.RepositoryAlbum
+import com.beemer.unofficial.fromis_9.repository.RepositoryAlbumList
 import com.beemer.unofficial.fromis_9.utils.Event
 import kotlinx.coroutines.launch
 
-class ViewModelFactoryAlbum(private val repository: RepositoryAlbum) : ViewModelProvider.Factory {
+class ViewModelFactoryAlbum(private val repository: RepositoryAlbumList) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(ViewModelAlbum::class.java)) {
             @Suppress("UNCHECKED_CAST")
@@ -20,7 +20,7 @@ class ViewModelFactoryAlbum(private val repository: RepositoryAlbum) : ViewModel
     }
 }
 
-class ViewModelAlbum(private val repository: RepositoryAlbum) : ViewModel() {
+class ViewModelAlbum(private val repository: RepositoryAlbumList) : ViewModel() {
     private val _description = MutableLiveData<String>()
     val description: LiveData<String> = _description
 
@@ -33,7 +33,7 @@ class ViewModelAlbum(private val repository: RepositoryAlbum) : ViewModel() {
     fun getAlbum(albumName: String) {
         viewModelScope.launch {
             try {
-                val response = repository.getAlbum("album,description,tracklist", albumName)
+                val response = repository.getAlbumList("album,description,tracklist", albumName, null)
                 val albumResponse = response.firstOrNull()
                 albumResponse?.albumDescription?.let {
                     _description.value = it.description
@@ -42,6 +42,7 @@ class ViewModelAlbum(private val repository: RepositoryAlbum) : ViewModel() {
 
                 _trackList.value = albumResponse?.trackList?.song?.map { song ->
                     DataTrackList(
+                        albumName = albumName,
                         colorMain = colorMain,
                         trackNumber = song.trackNumber,
                         songName = song.songName,
