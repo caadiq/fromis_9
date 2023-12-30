@@ -1,6 +1,5 @@
 package com.beemer.unofficial.fromis_9.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -66,10 +65,9 @@ class ViewModelAlbumList(private val repository: RepositoryAlbumList) : ViewMode
     }
 
     fun getAlbumList() {
-        Log.d("ViewModelAlbumList", "getAlbumList: called")
         viewModelScope.launch {
             try {
-                val response = repository.getAlbumList("album,art", null)
+                val response = repository.getAlbumList("album,art", null, null)
                 _albumList.value = response.map {
                     DataAlbumList(
                         albumName = it.albumName ?: "",

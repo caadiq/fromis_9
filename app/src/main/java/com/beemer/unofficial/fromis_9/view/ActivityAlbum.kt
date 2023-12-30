@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.beemer.unofficial.fromis_9.R
 import com.beemer.unofficial.fromis_9.adapter.AdapterAlbumPager
 import com.beemer.unofficial.fromis_9.databinding.ActivityAlbumBinding
-import com.beemer.unofficial.fromis_9.repository.RepositoryAlbum
+import com.beemer.unofficial.fromis_9.repository.RepositoryAlbumList
 import com.beemer.unofficial.fromis_9.service.RetrofitService
 import com.beemer.unofficial.fromis_9.viewmodel.ViewModelAlbum
 import com.beemer.unofficial.fromis_9.viewmodel.ViewModelFactoryAlbum
@@ -23,7 +23,7 @@ class ActivityAlbum : AppCompatActivity() {
 
     val viewModel: ViewModelAlbum by lazy {
         val apiAlbumList = RetrofitService.apiAlbumList
-        val repository = RepositoryAlbum(apiAlbumList)
+        val repository = RepositoryAlbumList(apiAlbumList, this)
         val factory = ViewModelFactoryAlbum(repository)
         ViewModelProvider(this, factory)[ViewModelAlbum::class.java]
     }

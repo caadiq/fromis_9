@@ -3,7 +3,6 @@ package com.beemer.unofficial.fromis_9.view
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,7 +26,6 @@ class FragmentAlbumTrack : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         activityAlbum.viewModel.trackList.observe(activityAlbum) {
             adapterTrackList.setTrackList(it ?: emptyList())
-            Log.d("테스트", "FragmentAlbumTrack -trackList: ${it ?: emptyList()}")
         }
 
         recyclerView.apply {
@@ -37,7 +35,8 @@ class FragmentAlbumTrack : Fragment() {
 
         adapterTrackList.setOnItemClickListener { item, _ ->
             startActivity(Intent(activityAlbum, ActivityAlbumSong::class.java).apply {
-                putExtra("songname", item.songName)
+                putExtra("albumName", item.albumName)
+                putExtra("songName", item.songName)
             })
         }
         return binding.root

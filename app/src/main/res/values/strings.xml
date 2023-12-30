@@ -7,6 +7,12 @@
     <string name="str_activity_album_sort_release">발매일</string>
     <string name="str_activity_album_sort_title">타이틀</string>
     <string name="str_activity_album_sort_classify">분류</string>
+    <!-- activity_album_song -->
+    <string name="str_activity_album_song_lyricist">작사</string>
+    <string name="str_activity_album_song_composer">작곡</string>
+    <string name="str_activity_album_song_arranger">편곡</string>
+    <string name="str_activity_album_song_lyrics">가사</string>
+
     <!-- fragment_main_schedule -->
     <string name="str_fragment_main_schedule_no_schedule">일정이 없습니다.</string>
     <!-- calendar_day -->
@@ -23,6 +29,4 @@
     <string name="str_menu_main_bottomnav_home">홈</string>
     <string name="str_menu_main_bottomnav_video">영상</string>
     <string name="str_menu_main_bottomnav_schedule">일정</string>
-    <!-- menu_main_toolbar -->
-    <string name="str_menu_main_toolbar_app_info">앱 정보</string>
 </resources>
