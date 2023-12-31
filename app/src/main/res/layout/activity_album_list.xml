@@ -75,7 +75,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btnToggleGroup"
-                tools:listitem="@layout/row_album_list"/>
+                tools:listitem="@layout/row_album_tracklist"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

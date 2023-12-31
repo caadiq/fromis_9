@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.beemer.unofficial.fromis_9.data.DataPhotoList
 import com.beemer.unofficial.fromis_9.data.DataTrackList
 import com.beemer.unofficial.fromis_9.repository.RepositoryAlbumList
 import com.beemer.unofficial.fromis_9.utils.Event
@@ -27,13 +28,16 @@ class ViewModelAlbum(private val repository: RepositoryAlbumList) : ViewModel() 
     private val _trackList = MutableLiveData<List<DataTrackList>>()
     val trackList: LiveData<List<DataTrackList>> = _trackList
 
+    private val _photoList = MutableLiveData<List<DataPhotoList>>()
+    val photoList: LiveData<List<DataPhotoList>> = _photoList
+
     private val _errorMessage = MutableLiveData<Event<String>>()
     val errorMessage: LiveData<Event<String>> = _errorMessage
 
     fun getAlbum(albumName: String) {
         viewModelScope.launch {
             try {
-                val response = repository.getAlbumList("album,description,tracklist", albumName, null)
+                val response = repository.getAlbumList("album,description,tracklist,photolist", albumName, null)
                 val albumResponse = response.firstOrNull()
                 albumResponse?.albumDescription?.let {
                     _description.value = it.description
@@ -48,6 +52,13 @@ class ViewModelAlbum(private val repository: RepositoryAlbumList) : ViewModel() 
                         songName = song.songName,
                         songLength = song.songLength,
                         titleTrack = song.titleTrack,
+                    )
+                }
+
+                _photoList.value = albumResponse?.photoList?.photo?.map { photo ->
+                    DataPhotoList(
+                        concept = photo.concept,
+                        imageUrl = photo.imageUrl
                     )
                 }
             } catch (_: Exception) {

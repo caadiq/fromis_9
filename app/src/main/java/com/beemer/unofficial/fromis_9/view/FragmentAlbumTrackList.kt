@@ -8,10 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.beemer.unofficial.fromis_9.adapter.AdapterTrackList
-import com.beemer.unofficial.fromis_9.databinding.FragmentAlbumTrackBinding
+import com.beemer.unofficial.fromis_9.databinding.FragmentAlbumTracklistBinding
 
-class FragmentAlbumTrack : Fragment() {
-    private val binding by lazy { FragmentAlbumTrackBinding.inflate(layoutInflater) }
+class FragmentAlbumTrackList : Fragment() {
+    private val binding by lazy { FragmentAlbumTracklistBinding.inflate(layoutInflater) }
     private lateinit var activityAlbum: ActivityAlbum
 
     private val recyclerView by lazy { binding.recyclerView }

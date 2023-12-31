@@ -51,12 +51,12 @@ class AdapterTrackList : RecyclerView.Adapter<AdapterTrackList.ViewHolder>() {
         onItemClickListener = listener
     }
 
-    fun setTrackList(newAlbumList: List<DataTrackList>) {
-        val diffCallback = TrackListDiffUtil(itemList, newAlbumList)
+    fun setTrackList(newTrackList: List<DataTrackList>) {
+        val diffCallback = TrackListDiffUtil(itemList, newTrackList)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
 
         itemList.clear()
-        itemList.addAll(newAlbumList)
+        itemList.addAll(newTrackList)
         diffResult.dispatchUpdatesTo(this)
     }
 }
