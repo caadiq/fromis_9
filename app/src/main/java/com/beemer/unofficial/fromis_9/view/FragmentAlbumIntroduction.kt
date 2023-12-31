@@ -9,10 +9,10 @@ import androidx.fragment.app.Fragment
 import com.beemer.unofficial.fromis_9.databinding.FragmentAlbumIntroductionBinding
 
 class FragmentAlbumIntroduction : Fragment() {
-    private val binding by lazy { FragmentAlbumIntroductionBinding.inflate(layoutInflater) }
-    private lateinit var activityAlbum: ActivityAlbum
+    private var _binding: FragmentAlbumIntroductionBinding? = null
+    private val binding get() = _binding!!
 
-    private val txtDescription by lazy { binding.txtDescription }
+    private lateinit var activityAlbum: ActivityAlbum
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -20,8 +20,15 @@ class FragmentAlbumIntroduction : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        activityAlbum.viewModel.description.observe(activityAlbum) { txtDescription.text = it }
+        _binding = FragmentAlbumIntroductionBinding.inflate(inflater, container, false)
+
+        activityAlbum.viewModel.description.observe(activityAlbum) { binding.txtDescription.text = it }
 
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

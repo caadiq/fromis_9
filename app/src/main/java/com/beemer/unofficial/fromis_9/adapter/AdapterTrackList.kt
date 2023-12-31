@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.beemer.unofficial.fromis_9.data.DataTrackList
-import com.beemer.unofficial.fromis_9.databinding.RowTrackListBinding
+import com.beemer.unofficial.fromis_9.databinding.RowAlbumTracklistBinding
 import com.beemer.unofficial.fromis_9.diff.TrackListDiffUtil
 
 class AdapterTrackList : RecyclerView.Adapter<AdapterTrackList.ViewHolder>() {
@@ -18,7 +18,7 @@ class AdapterTrackList : RecyclerView.Adapter<AdapterTrackList.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = RowTrackListBinding.inflate(inflater, parent, false)
+        val binding = RowAlbumTracklistBinding.inflate(inflater, parent, false)
         return ViewHolder(binding)
     }
 
@@ -26,7 +26,7 @@ class AdapterTrackList : RecyclerView.Adapter<AdapterTrackList.ViewHolder>() {
         holder.bind(itemList[position])
     }
 
-    inner class ViewHolder(private val binding: RowTrackListBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: RowAlbumTracklistBinding) : RecyclerView.ViewHolder(binding.root) {
         init {
             itemView.setOnClickListener {
                 val position = bindingAdapterPosition

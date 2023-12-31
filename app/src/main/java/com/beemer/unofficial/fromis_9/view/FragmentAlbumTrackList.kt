@@ -11,12 +11,11 @@ import com.beemer.unofficial.fromis_9.adapter.AdapterTrackList
 import com.beemer.unofficial.fromis_9.databinding.FragmentAlbumTracklistBinding
 
 class FragmentAlbumTrackList : Fragment() {
-    private val binding by lazy { FragmentAlbumTracklistBinding.inflate(layoutInflater) }
+    private var _binding: FragmentAlbumTracklistBinding? = null
+    private val binding get() = _binding!!
+
     private lateinit var activityAlbum: ActivityAlbum
-
-    private val recyclerView by lazy { binding.recyclerView }
-
-    private val adapterTrackList by lazy { AdapterTrackList() }
+    private val adapterTrackList = AdapterTrackList()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -24,11 +23,13 @@ class FragmentAlbumTrackList : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        activityAlbum.viewModel.trackList.observe(activityAlbum) {
+        _binding = FragmentAlbumTracklistBinding.inflate(inflater, container, false)
+
+        activityAlbum.viewModel.trackList.observe(viewLifecycleOwner) {
             adapterTrackList.setTrackList(it ?: emptyList())
         }
 
-        recyclerView.apply {
+        binding.recyclerView.apply {
             adapter = adapterTrackList
             setHasFixedSize(true)
         }
@@ -40,5 +41,10 @@ class FragmentAlbumTrackList : Fragment() {
             })
         }
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

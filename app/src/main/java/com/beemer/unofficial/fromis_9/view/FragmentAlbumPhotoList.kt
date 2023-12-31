@@ -12,13 +12,12 @@ import com.beemer.unofficial.fromis_9.adapter.AdapterPhotoList
 import com.beemer.unofficial.fromis_9.databinding.FragmentAlbumPhotolistBinding
 
 class FragmentAlbumPhotoList : Fragment() {
-    private val binding by lazy { FragmentAlbumPhotolistBinding.inflate(layoutInflater) }
+    private var _binding: FragmentAlbumPhotolistBinding? = null
+    private val binding get() = _binding!!
+
     private lateinit var activityAlbum: ActivityAlbum
-
-    private val recyclerView by lazy { binding.recyclerView }
-
-    private val adapterPhotoList by lazy { AdapterPhotoList() }
-    private val gridLayoutmanager by lazy { GridLayoutManager(activityAlbum, 2) }
+    private lateinit var gridLayoutManager: GridLayoutManager
+    private val adapterPhotoList = AdapterPhotoList()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -26,23 +25,31 @@ class FragmentAlbumPhotoList : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        _binding = FragmentAlbumPhotolistBinding.inflate(inflater, container, false)
+
         activityAlbum.viewModel.photoList.observe(activityAlbum) {
             adapterPhotoList.setPhotoList(it ?: emptyList())
         }
 
-        recyclerView.apply {
-            layoutManager = gridLayoutmanager
+        gridLayoutManager = GridLayoutManager(context, 2)
+        binding.recyclerView.apply {
+            layoutManager = gridLayoutManager
             adapter = adapterPhotoList
             setHasFixedSize(true)
         }
 
         adapterPhotoList.setOnItemClickListener { item, _ ->
-            startActivity(Intent(activityAlbum, ActivityAlbumSong::class.java).apply {
+            startActivity(Intent(activityAlbum, ActivityAlbumPhoto::class.java).apply {
                 putExtra("concept", item.concept)
                 putExtra("imageUrl", item.imageUrl)
             })
         }
 
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

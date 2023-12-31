@@ -16,13 +16,12 @@ import com.beemer.unofficial.fromis_9.data.DataHome
 import com.beemer.unofficial.fromis_9.databinding.FragmentMainHomeBinding
 
 class FragmentMainHome() : Fragment() {
-    private val binding by lazy { FragmentMainHomeBinding.inflate(layoutInflater) }
+    private var _binding: FragmentMainHomeBinding? = null
+    private val binding get() = _binding!!
+
     private lateinit var activityMain: ActivityMain
-
-    private val recyclerView by lazy { binding.recyclerView }
-
-    private val adapterHome by lazy { AdapterHome() }
-    private lateinit var gridLayoutmanager: GridLayoutManager
+    private lateinit var gridLayoutManager: GridLayoutManager
+    private val adapterHome = AdapterHome()
     private val homeItemList = mutableListOf<DataHome>()
 
     override fun onAttach(context: Context) {
@@ -31,18 +30,17 @@ class FragmentMainHome() : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        gridLayoutmanager = GridLayoutManager(context, 2).apply {
-            spanSizeLookup = object :SpanSizeLookup() {
-                override fun getSpanSize(position: Int): Int {
-                    if (position == 0)
-                        return 2
-                    return 1
-                }
+        _binding = FragmentMainHomeBinding.inflate(inflater, container, false)
+
+        gridLayoutManager = GridLayoutManager(context, 2)
+        gridLayoutManager.spanSizeLookup = object : SpanSizeLookup() {
+            override fun getSpanSize(position: Int): Int {
+                return if (position == 0) 2 else 1
             }
         }
 
-        recyclerView.apply {
-            layoutManager = gridLayoutmanager
+        binding.recyclerView.apply {
+            layoutManager = gridLayoutManager
             adapter = adapterHome
             itemAnimator = null
         }
@@ -64,5 +62,10 @@ class FragmentMainHome() : Fragment() {
             }
         }
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

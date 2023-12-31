@@ -29,6 +29,12 @@
             android:name=".view.ActivityAlbum"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".view.ActivityAlbumPhoto"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.ActivityAlbumPhotoZoom"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".view.ActivityAlbumSong"
             android:screenOrientation="portrait" />
     </application>
