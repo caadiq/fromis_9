@@ -22,11 +22,16 @@ data class AlbumListResponse(
     val colorSecondary: String?,
     @SerializedName("albumArt") val albumArt: AlbumArt?,
     @SerializedName("albumDescription") val albumDescription: AlbumDescription?,
-    @SerializedName("trackList") val trackList: TrackListResponse?
+    @SerializedName("trackList") val trackList: TrackListResponse?,
+    @SerializedName("photoList") val photoList: PhotoListResponse?,
 )
 
 data class TrackListResponse(
     @SerializedName("song") val song: List<Song>,
+)
+
+data class PhotoListResponse(
+    @SerializedName("photo") val photo: List<Photo>,
 )
 
 data class AlbumArt(
@@ -49,4 +54,10 @@ data class Song(
     val songLength: String,
     val trackNumber: Int,
     val titleTrack: Boolean
+)
+
+data class Photo(
+    val albumName: String,
+    val concept: String,
+    val imageUrl: String
 )
