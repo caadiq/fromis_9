@@ -75,4 +75,5 @@ dependencies {
     // 기타 라이브러리
     implementation("com.github.bumptech.glide:glide:4.16.0") // Glide
     implementation("com.kizitonwose.calendar:view:2.4.1") // Calendar
+    implementation("com.github.MikeOrtiz:TouchImageView:3.6") // Pinch Zoom
 }

@@ -20,7 +20,7 @@ class ActivityMain : AppCompatActivity() {
     private val layoutParent by lazy { binding.layoutParent }
 
     private var backPressedTime: Long = 0
-    private val backPressedCallback = object : OnBackPressedCallback(true) {
+    private val onBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
             if (System.currentTimeMillis() - backPressedTime >= 2000) {
                 backPressedTime = System.currentTimeMillis()
@@ -38,7 +38,7 @@ class ActivityMain : AppCompatActivity() {
         toolbar.title = ""
         setSupportActionBar(toolbar)
 
-        onBackPressedDispatcher.addCallback(this, backPressedCallback)
+        onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
 
         viewModel.currentFragmentTag.observe(this) { tag ->
             supportFragmentManager.fragments.forEach { fragment ->

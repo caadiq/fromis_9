@@ -3,7 +3,6 @@ package com.beemer.unofficial.fromis_9.view
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -53,67 +52,63 @@ class MonthHeaderViewContainer(view: View) : ViewContainer(view) {
 }
 
 class FragmentMainSchedule : Fragment() {
-    private val binding by lazy { FragmentMainScheduleBinding.inflate(layoutInflater) }
+    private var _binding: FragmentMainScheduleBinding? = null
+    private val binding get() = _binding!!
+
     private lateinit var activityMain: ActivityMain
+    private lateinit var viewModel: ViewModelScheduleList
 
-    private val viewModel: ViewModelScheduleList by lazy {
-        val apiAlbumList = RetrofitService.apiScheduleList
-        val repository = RepositoryScheduleList(apiAlbumList)
-        val factory = ViewModelFactoryScheduleList(repository)
-        ViewModelProvider(this, factory)[ViewModelScheduleList::class.java]
-    }
-
-    private val calendarView by lazy { binding.calendarView }
-    private val calendarYearMonth by lazy { binding.calendarYearMonth }
-    private val buttonPrevMonth by lazy { binding.buttonPrevMonth }
-    private val buttonNextMonth by lazy { binding.buttonNextMonth }
-    private val textDate by lazy { binding.textDate }
-    private val textNoSchedule by lazy { binding.textNoSchedule }
-    private val recyclerView by lazy { binding.recyclerView }
-
-    private val adapterSchedule by lazy { AdapterSchedule() }
+    private val adapterSchedule = AdapterSchedule()
     private val scheduleDataMap = mutableMapOf<LocalDate, List<DataSchedule>>()
-    private val formatYear = DateTimeFormatter.ofPattern("yyyy", Locale.getDefault())
-    private val formatMonth = DateTimeFormatter.ofPattern("MM", Locale.getDefault())
-    private var nowMonth = YearMonth.now()
 
+    private var nowMonth = YearMonth.now()
     private var date: LocalDate = LocalDate.now()
     private var isFirstLoad = true
 
-    private val colorPrimary by lazy { ContextCompat.getColor(activityMain, R.color.colorPrimary) }
-    private val colorBlue by lazy { ContextCompat.getColor(activityMain, R.color.blue) }
-    private val colorRed by lazy { ContextCompat.getColor(activityMain, R.color.red) }
-    private val colorGray by lazy { ContextCompat.getColor(activityMain, R.color.gray) }
-    private val colorDarkerGray by lazy { ContextCompat.getColor(activityMain, R.color.darker_gray) }
+    private val yearMonthFormatter = DateTimeFormatter.ofPattern("yyyy년 MM월", Locale.getDefault())
+    private val dayFormatter = DateTimeFormatter.ofPattern("M월 d일 E요일", Locale.KOREAN)
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         activityMain = context as ActivityMain
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        initViewModel()
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        _binding = FragmentMainScheduleBinding.inflate(inflater, container, false)
+
+        setCalendarView()
+        setRecyclerView()
+        observeViewModel()
+
+        return binding.root
+    }
+
+    private fun initViewModel() {
+        val apiScheduleList = RetrofitService.apiScheduleList
+        val repository = RepositoryScheduleList(apiScheduleList)
+        val factory = ViewModelFactoryScheduleList(repository)
+        viewModel = ViewModelProvider(this, factory)[ViewModelScheduleList::class.java]
+    }
+
+    private fun setCalendarView() {
         val startMonth = nowMonth.minusMonths(100)
         val endMonth = nowMonth.plusMonths(100)
         val firstDayOfWeek = WeekFields.of(DayOfWeek.SUNDAY, 1).firstDayOfWeek
         val textBorder = ContextCompat.getDrawable(activityMain, R.drawable.drawable_calendar_border_today)
 
-        viewModel.apply {
-            scheduleList.observe(viewLifecycleOwner) { updateScheduleList(it) }
-            errorMessage.observe(viewLifecycleOwner) {
-                it.getContentIfNotHandled()?.let { message ->
-                    Toast.makeText(activityMain, message, Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
-
-        recyclerView.apply {
-            adapter = adapterSchedule
-            addItemDecoration(ItemDecoratorDivider(20, 0, 0, 0, 1, 10, Color.GRAY))
-            itemAnimator = null
-        }
-
-        calendarView.apply {
+        binding.calendarView.apply {
             setup(startMonth, endMonth, firstDayOfWeek)
+
+            monthScrollListener = {
+                nowMonth = it.yearMonth
+                binding.calendarYearMonth.text = nowMonth.format(yearMonthFormatter)
+                viewModel.getScheduleList(nowMonth.year, nowMonth.monthValue)
+            }
 
             // 날짜 바인더 설정
             dayBinder = object : MonthDayBinder<DayViewContainer> {
@@ -129,10 +124,10 @@ class FragmentMainSchedule : Fragment() {
                             date = data.date
 
                             // 이전에 선택되어 있던 날짜의 뷰 업데이트
-                            prevDate.let { calendarView.notifyDateChanged(it) }
+                            prevDate.let { binding.calendarView.notifyDateChanged(it) }
 
                             // 새로 선택한 날짜의 뷰 업데이트
-                            calendarView.notifyDateChanged(data.date)
+                            binding.calendarView.notifyDateChanged(data.date)
 
                             setSchedule(date)
                             setScheduleVisibility(date)
@@ -142,16 +137,16 @@ class FragmentMainSchedule : Fragment() {
                     when {
                         data.date.isEqual(LocalDate.now()) -> {
                             // 오늘 날짜에 대한 특별한 색상 설정
-                            container.calendarDayText.setTextColor(colorPrimary)
+                            container.calendarDayText.setTextColor(ContextCompat.getColor(activityMain, R.color.colorPrimary))
                         }
                         data.date.dayOfWeek == DayOfWeek.SATURDAY -> {
-                            container.calendarDayText.setTextColor(colorBlue) // 토요일
+                            container.calendarDayText.setTextColor(ContextCompat.getColor(activityMain, R.color.blue)) // 토요일
                         }
                         data.date.dayOfWeek == DayOfWeek.SUNDAY -> {
-                            container.calendarDayText.setTextColor(colorRed) // 일요일
+                            container.calendarDayText.setTextColor(ContextCompat.getColor(activityMain, R.color.red)) // 일요일
                         }
                         else -> {
-                            container.calendarDayText.setTextColor(colorDarkerGray) // 평일
+                            container.calendarDayText.setTextColor(ContextCompat.getColor(activityMain, R.color.darker_gray)) // 평일
                         }
                     }
 
@@ -159,9 +154,7 @@ class FragmentMainSchedule : Fragment() {
                         // 선택한 날짜에 테두리 적용
                         if (data.date == date) {
                             container.calendarDayText.background = textBorder
-                            textDate.text = data.date.format(
-                                DateTimeFormatter.ofPattern("M월 d일 E요일", Locale.KOREAN)
-                            )
+                            binding.textDate.text = data.date.format(dayFormatter)
                         } else {
                             container.calendarDayText.background = null
                         }
@@ -173,7 +166,7 @@ class FragmentMainSchedule : Fragment() {
                             container.calendarDayDot.visibility = View.GONE
                         }
                     } else {
-                        container.calendarDayText.setTextColor(colorGray)
+                        container.calendarDayText.setTextColor(ContextCompat.getColor(activityMain, R.color.gray))
                         container.calendarDayText.background = null
                         container.calendarDayDot.visibility = View.GONE
                     }
@@ -187,8 +180,6 @@ class FragmentMainSchedule : Fragment() {
                 }
 
                 override fun bind(container: MonthHeaderViewContainer, data: CalendarMonth) {
-                    Log.d("FragmentMainSchedule", "monthHeaderBinder")
-
                     val daysOfWeek = arrayOf(
                         DayOfWeek.SUNDAY, DayOfWeek.MONDAY, DayOfWeek.TUESDAY,
                         DayOfWeek.WEDNESDAY, DayOfWeek.THURSDAY, DayOfWeek.FRIDAY,
@@ -204,35 +195,34 @@ class FragmentMainSchedule : Fragment() {
         }
 
         // 왼쪽 화살표 클릭
-        buttonPrevMonth.setOnClickListener {
-            val currentMonth = calendarView.findFirstVisibleMonth()?.yearMonth ?: return@setOnClickListener
+        binding.buttonPrevMonth.setOnClickListener {
+            val currentMonth = binding.calendarView.findFirstVisibleMonth()?.yearMonth ?: return@setOnClickListener
             val prevMonth = currentMonth.minusMonths(1)
-            calendarView.scrollToMonth(prevMonth)
+            binding.calendarView.scrollToMonth(prevMonth)
         }
 
         // 오른쪽 화살표 클릭
-        buttonNextMonth.setOnClickListener {
-            val currentMonth = calendarView.findFirstVisibleMonth()?.yearMonth ?: return@setOnClickListener
+        binding.buttonNextMonth.setOnClickListener {
+            val currentMonth = binding.calendarView.findFirstVisibleMonth()?.yearMonth ?: return@setOnClickListener
             val nextMonth = currentMonth.plusMonths(1)
-            calendarView.scrollToMonth(nextMonth)
+            binding.calendarView.scrollToMonth(nextMonth)
         }
-
-        calendarView.monthScrollListener = {
-            nowMonth = it.yearMonth
-            val year = nowMonth.format(formatYear).toInt()
-            val month = nowMonth.format(formatMonth).toInt()
-
-            calendarYearMonth.text = getString(R.string.str_fragment_main_schedule_calendar_title, "$year", "$month")
-            viewModel.getScheduleList(year, month)
-        }
-
-        return binding.root
     }
 
-    override fun onHiddenChanged(hidden: Boolean) {
-        super.onHiddenChanged(hidden)
-        if (!hidden) {
-            calendarView.scrollToMonth(nowMonth) // 이번 달이 보이게 하기
+    private fun setRecyclerView() {
+        binding.recyclerView.apply {
+            adapter = adapterSchedule
+            addItemDecoration(ItemDecoratorDivider(20, 0, 0, 0, 1, 10, Color.GRAY))
+            itemAnimator = null
+        }
+    }
+
+    private fun observeViewModel() {
+        viewModel.scheduleList.observe(viewLifecycleOwner) { updateScheduleList(it) }
+        viewModel.errorMessage.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let { message ->
+                Toast.makeText(activityMain, message, Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -241,7 +231,7 @@ class FragmentMainSchedule : Fragment() {
         if (scheduleMap != scheduleDataMap) {
             scheduleDataMap.clear()
             scheduleDataMap.putAll(scheduleMap)
-            calendarView.notifyCalendarChanged() // 캘린더 뷰 업데이트
+            binding.calendarView.notifyCalendarChanged() // 캘린더 뷰 업데이트
         }
 
         if (isFirstLoad) {
@@ -260,11 +250,23 @@ class FragmentMainSchedule : Fragment() {
     // 선택한 날짜에 일정이 없으면 일정이 없다는 텍스트 표시
     private fun setScheduleVisibility(selectedDate: LocalDate) {
         if (scheduleDataMap[selectedDate].isNullOrEmpty()) {
-            textNoSchedule.visibility = View.VISIBLE
-            recyclerView.visibility = View.GONE
+            binding.textNoSchedule.visibility = View.VISIBLE
+            binding.recyclerView.visibility = View.GONE
         } else {
-            textNoSchedule.visibility = View.GONE
-            recyclerView.visibility = View.VISIBLE
+            binding.textNoSchedule.visibility = View.GONE
+            binding.recyclerView.visibility = View.VISIBLE
         }
+    }
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        if (!hidden) {
+            binding.calendarView.scrollToMonth(nowMonth) // 이번 달이 보이게 하기
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
