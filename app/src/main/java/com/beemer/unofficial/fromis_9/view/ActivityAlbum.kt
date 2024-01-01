@@ -35,10 +35,8 @@ class ActivityAlbum : AppCompatActivity() {
 
         viewModel.apply {
             albumName?.let { getAlbum(it) }
-            errorMessage.observe(this@ActivityAlbum) {
-                it.getContentIfNotHandled()?.let { message ->
-                    Toast.makeText(this@ActivityAlbum, message, Toast.LENGTH_SHORT).show()
-                }
+            errorMessage.observe(this@ActivityAlbum) { message ->
+                message.getContentIfNotHandled()?.let { Toast.makeText(this@ActivityAlbum, it, Toast.LENGTH_SHORT).show() }
             }
         }
 

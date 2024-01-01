@@ -39,10 +39,8 @@ class ActivityAlbumSong : AppCompatActivity() {
                     }
                 }
                 lyrics.observe(this@ActivityAlbumSong) { binding.txtLyrics.text = it }
-                errorMessage.observe(this@ActivityAlbumSong) {
-                    it.getContentIfNotHandled()?.let { message ->
-                        Toast.makeText(this@ActivityAlbumSong, message, Toast.LENGTH_SHORT).show()
-                    }
+                errorMessage.observe(this@ActivityAlbumSong) { message ->
+                    message.getContentIfNotHandled()?.let { Toast.makeText(this@ActivityAlbumSong, it, Toast.LENGTH_SHORT).show() }
                 }
             }
         }

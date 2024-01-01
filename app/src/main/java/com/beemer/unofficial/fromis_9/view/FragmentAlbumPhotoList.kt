@@ -27,7 +27,7 @@ class FragmentAlbumPhotoList : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentAlbumPhotolistBinding.inflate(inflater, container, false)
 
-        activityAlbum.viewModel.photoList.observe(activityAlbum) {
+        activityAlbum.viewModel.photoList.observe(viewLifecycleOwner) {
             adapterPhotoList.setPhotoList(it ?: emptyList())
         }
 
