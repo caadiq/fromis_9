@@ -3,23 +3,12 @@ package com.beemer.unofficial.fromis_9.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.beemer.unofficial.fromis_9.data.DataPhotoList
 import com.beemer.unofficial.fromis_9.data.DataTrackList
 import com.beemer.unofficial.fromis_9.repository.RepositoryAlbumList
 import com.beemer.unofficial.fromis_9.utils.Event
 import kotlinx.coroutines.launch
-
-class ViewModelFactoryAlbum(private val repository: RepositoryAlbumList) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(ViewModelAlbum::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            return ViewModelAlbum(repository) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
-    }
-}
 
 class ViewModelAlbum(private val repository: RepositoryAlbumList) : ViewModel() {
     private val _description = MutableLiveData<String>()
@@ -61,7 +50,7 @@ class ViewModelAlbum(private val repository: RepositoryAlbumList) : ViewModel() 
                         imageUrl = photo.imageUrl
                     )
                 }
-            } catch (_: Exception) {
+            } catch (e: Exception) {
                 _errorMessage.value = Event("앨범 정보를 불러오지 못했습니다.")
             }
         }
