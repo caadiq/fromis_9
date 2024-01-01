@@ -56,7 +56,7 @@ class FragmentMainSchedule : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var activityMain: ActivityMain
-    private lateinit var viewModel: ViewModelScheduleList
+    private val viewModel: ViewModelScheduleList by lazy { ViewModelProvider(this, ViewModelFactory(RepositoryScheduleList(RetrofitService.apiScheduleList)))[ViewModelScheduleList::class.java] }
 
     private val adapterSchedule = AdapterSchedule()
     private val scheduleDataMap = mutableMapOf<LocalDate, List<DataSchedule>>()
@@ -73,11 +73,6 @@ class FragmentMainSchedule : Fragment() {
         activityMain = context as ActivityMain
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        initViewModel()
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentMainScheduleBinding.inflate(inflater, container, false)
 
@@ -86,13 +81,6 @@ class FragmentMainSchedule : Fragment() {
         observeViewModel()
 
         return binding.root
-    }
-
-    private fun initViewModel() {
-        val apiScheduleList = RetrofitService.apiScheduleList
-        val repository = RepositoryScheduleList(apiScheduleList)
-        val factory = ViewModelFactory(repository)
-        viewModel = ViewModelProvider(this, factory)[ViewModelScheduleList::class.java]
     }
 
     private fun setCalendarView() {

@@ -18,8 +18,6 @@ import com.bumptech.glide.request.target.Target
 class ActivityAlbumPhotoZoom : AppCompatActivity() {
     private val binding by lazy { ActivityAlbumPhotoZoomBinding.inflate(layoutInflater) }
 
-    private val imageUrl by lazy { intent.getStringExtra("imageUrl") }
-
     private val onBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
             closeActivity()
@@ -29,13 +27,13 @@ class ActivityAlbumPhotoZoom : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
 
+        val imageUrl = intent.getStringExtra("imageUrl")
+
         supportPostponeEnterTransition()
-        binding.imgPhoto.transitionWithGlide(imageUrl) {
-            supportStartPostponedEnterTransition()
-        }
+        binding.imgPhoto.transitionWithGlide(imageUrl, ::supportStartPostponedEnterTransition)
+
         binding.btnClose.setOnClickListener {
             closeActivity()
         }
@@ -54,15 +52,11 @@ class ActivityAlbumPhotoZoom : AppCompatActivity() {
             }
         }
 
-        Glide.with(this)
-            .load(url)
-            .apply(RequestOptions().dontTransform().placeholder(ColorDrawable(Color.TRANSPARENT)))
-            .listener(listener)
-            .into(this)
+        Glide.with(this).load(url).apply(RequestOptions().dontTransform().placeholder(ColorDrawable(Color.TRANSPARENT))).listener(listener).into(this)
     }
 
     private fun closeActivity() {
-        binding.imgPhoto.setZoom(1.0f)
+        binding.imgPhoto.resetZoom()
         supportFinishAfterTransition()
     }
 }

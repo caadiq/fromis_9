@@ -51,7 +51,7 @@
             </com.google.android.material.button.MaterialButtonToggleGroup>
 
             <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/btnSort"
+                android:id="@+id/btnOrderBy"
                 android:layout_width="56dp"
                 android:layout_height="56dp"
                 android:background="@android:color/transparent"
