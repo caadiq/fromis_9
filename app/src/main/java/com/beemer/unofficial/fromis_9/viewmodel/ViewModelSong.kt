@@ -3,21 +3,10 @@ package com.beemer.unofficial.fromis_9.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.beemer.unofficial.fromis_9.repository.RepositoryAlbumList
 import com.beemer.unofficial.fromis_9.utils.Event
 import kotlinx.coroutines.launch
-
-class ViewModelFactorySong(private val repository: RepositoryAlbumList) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(ViewModelSong::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            return ViewModelSong(repository) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
-    }
-}
 
 class ViewModelSong(private val repository: RepositoryAlbumList) : ViewModel() {
     private val _lyricist = MutableLiveData<String>()

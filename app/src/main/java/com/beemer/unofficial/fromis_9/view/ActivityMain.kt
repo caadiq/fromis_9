@@ -6,14 +6,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.beemer.unofficial.fromis_9.R
 import com.beemer.unofficial.fromis_9.databinding.ActivityMainBinding
-import com.beemer.unofficial.fromis_9.viewmodel.ViewModelFactoryMain
 import com.beemer.unofficial.fromis_9.viewmodel.ViewModelMain
 import com.google.android.material.snackbar.Snackbar
 
 class ActivityMain : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
-    private val viewModel: ViewModelMain by lazy { ViewModelProvider(this, ViewModelFactoryMain())[ViewModelMain::class.java] }
+    private val viewModel: ViewModelMain by lazy { ViewModelProvider(this)[ViewModelMain::class.java] }
 
     private val toolbar by lazy { binding.toolbar }
     private val bottomNav by lazy { binding.bottomNav }

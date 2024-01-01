@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.beemer.unofficial.fromis_9.databinding.ActivityAlbumSongBinding
 import com.beemer.unofficial.fromis_9.repository.RepositoryAlbumList
 import com.beemer.unofficial.fromis_9.service.RetrofitService
-import com.beemer.unofficial.fromis_9.viewmodel.ViewModelFactorySong
+import com.beemer.unofficial.fromis_9.viewmodel.ViewModelFactory
 import com.beemer.unofficial.fromis_9.viewmodel.ViewModelSong
 
 class ActivityAlbumSong : AppCompatActivity() {
@@ -17,7 +17,7 @@ class ActivityAlbumSong : AppCompatActivity() {
     private val viewModel: ViewModelSong by lazy {
         val apiAlbumList = RetrofitService.apiAlbumList
         val repository = RepositoryAlbumList(apiAlbumList, this)
-        val factory = ViewModelFactorySong(repository)
+        val factory = ViewModelFactory(repository)
         ViewModelProvider(this, factory)[ViewModelSong::class.java]
     }
 

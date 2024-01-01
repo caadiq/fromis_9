@@ -18,7 +18,7 @@ import com.beemer.unofficial.fromis_9.databinding.FragmentMainScheduleBinding
 import com.beemer.unofficial.fromis_9.repository.RepositoryScheduleList
 import com.beemer.unofficial.fromis_9.service.RetrofitService
 import com.beemer.unofficial.fromis_9.ui.ItemDecoratorDivider
-import com.beemer.unofficial.fromis_9.viewmodel.ViewModelFactoryScheduleList
+import com.beemer.unofficial.fromis_9.viewmodel.ViewModelFactory
 import com.beemer.unofficial.fromis_9.viewmodel.ViewModelScheduleList
 import com.kizitonwose.calendar.core.CalendarDay
 import com.kizitonwose.calendar.core.CalendarMonth
@@ -91,7 +91,7 @@ class FragmentMainSchedule : Fragment() {
     private fun initViewModel() {
         val apiScheduleList = RetrofitService.apiScheduleList
         val repository = RepositoryScheduleList(apiScheduleList)
-        val factory = ViewModelFactoryScheduleList(repository)
+        val factory = ViewModelFactory(repository)
         viewModel = ViewModelProvider(this, factory)[ViewModelScheduleList::class.java]
     }
 
