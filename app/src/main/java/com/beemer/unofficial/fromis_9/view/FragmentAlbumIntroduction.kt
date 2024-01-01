@@ -22,7 +22,7 @@ class FragmentAlbumIntroduction : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentAlbumIntroductionBinding.inflate(inflater, container, false)
 
-        activityAlbum.viewModel.description.observe(activityAlbum) { binding.txtDescription.text = it }
+        activityAlbum.viewModel.description.observe(viewLifecycleOwner) { binding.txtDescription.text = it }
 
         return binding.root
     }

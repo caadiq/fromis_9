@@ -76,9 +76,15 @@ class FragmentMainSchedule : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentMainScheduleBinding.inflate(inflater, container, false)
 
+        viewModel.apply {
+            scheduleList.observe(viewLifecycleOwner) { updateScheduleList(it) }
+            errorMessage.observe(viewLifecycleOwner) { message ->
+                message.getContentIfNotHandled()?.let { Toast.makeText(activityMain, it, Toast.LENGTH_SHORT).show() }
+            }
+        }
+
         setCalendarView()
-        setRecyclerView()
-        observeViewModel()
+        setupRecyclerView()
 
         return binding.root
     }
@@ -197,20 +203,11 @@ class FragmentMainSchedule : Fragment() {
         }
     }
 
-    private fun setRecyclerView() {
+    private fun setupRecyclerView() {
         binding.recyclerView.apply {
             adapter = adapterSchedule
             addItemDecoration(ItemDecoratorDivider(20, 0, 0, 0, 1, 10, Color.GRAY))
             itemAnimator = null
-        }
-    }
-
-    private fun observeViewModel() {
-        viewModel.scheduleList.observe(viewLifecycleOwner) { updateScheduleList(it) }
-        viewModel.errorMessage.observe(viewLifecycleOwner) {
-            it.getContentIfNotHandled()?.let { message ->
-                Toast.makeText(activityMain, message, Toast.LENGTH_SHORT).show()
-            }
         }
     }
 
