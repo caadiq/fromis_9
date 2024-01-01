@@ -16,18 +16,9 @@ import com.beemer.unofficial.fromis_9.viewmodel.ViewModelFactory
 class ActivityAlbumList : AppCompatActivity() {
     private val binding by lazy { ActivityAlbumListBinding.inflate(layoutInflater) }
 
-    private val viewModel: ViewModelAlbumList by lazy {
-        val apiAlbumList = RetrofitService.apiAlbumList
-        val repository = RepositoryAlbumList(apiAlbumList, this)
-        val factory = ViewModelFactory(repository)
-        ViewModelProvider(this, factory)[ViewModelAlbumList::class.java]
-    }
+    private val viewModel: ViewModelAlbumList by lazy { ViewModelProvider(this, ViewModelFactory(RepositoryAlbumList(RetrofitService.apiAlbumList, this)))[ViewModelAlbumList::class.java] }
 
-    private val btnToggleGroup by lazy { binding.btnToggleGroup }
-    private val btnSort by lazy { binding.btnSort }
-    private val recyclerView by lazy { binding.recyclerView }
-
-    private val adapterAlbumList by lazy { AdapterAlbumList() }
+    private val adapterAlbumList = AdapterAlbumList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,58 +27,68 @@ class ActivityAlbumList : AppCompatActivity() {
         viewModel.apply {
             getAlbumList()
 
-            sortBy.observe(this@ActivityAlbumList) {
-                btnToggleGroup.check(
-                    when (it) {
-                        "release" -> R.id.btnRelease
-                        "title" -> R.id.btnTitle
-                        "type" -> R.id.btnType
-                        else -> R.id.btnRelease
-                    }
-                )
-            }
-            isAscending.observe(this@ActivityAlbumList) { setOrderButtonImage(it) }
+            sortBy.observe(this@ActivityAlbumList) { sortBy.observe(this@ActivityAlbumList) { setSortByList(it) } }
+            isAscending.observe(this@ActivityAlbumList) { setOrderByButtonImage(it) }
             albumList.observe(this@ActivityAlbumList) { adapterAlbumList.setAlbumList(it ?: emptyList()) }
-            errorMessage.observe(this@ActivityAlbumList) {
-                it.getContentIfNotHandled()?.let { message ->
-                    Toast.makeText(this@ActivityAlbumList, message, Toast.LENGTH_SHORT).show()
-                }
+            errorMessage.observe(this@ActivityAlbumList) { message ->
+                message.getContentIfNotHandled()?.let { Toast.makeText(this@ActivityAlbumList, it, Toast.LENGTH_SHORT).show() }
             }
         }
 
-        btnToggleGroup.addOnButtonCheckedListener { _, checkedId, isChecked ->
+        setupToggleGroupListener()
+        setupOrderButtonListener()
+        setupRecyclerView()
+    }
+
+    private fun setupToggleGroupListener() {
+        binding.btnToggleGroup.addOnButtonCheckedListener { _, checkedId, isChecked ->
             if (isChecked) {
-                viewModel.updateSortBy(
-                    when (checkedId) {
-                        R.id.btnRelease -> "release"
-                        R.id.btnTitle -> "title"
-                        R.id.btnType -> "type"
-                        else -> "release"
-                    }
-                )
+                val sortBy = when (checkedId) {
+                    R.id.btnRelease -> "release"
+                    R.id.btnTitle -> "title"
+                    R.id.btnType -> "type"
+                    else -> "release"
+                }
+                viewModel.updateSortBy(sortBy)
             }
         }
+    }
 
-        btnSort.setOnClickListener {
+    private fun setupOrderButtonListener() {
+        binding.btnOrderBy.setOnClickListener {
             viewModel.updateIsAscending(!(viewModel.isAscending.value ?: true))
         }
+    }
 
-        recyclerView.apply {
+    private fun setupRecyclerView() {
+        binding.recyclerView.apply {
             adapter = adapterAlbumList
             setHasFixedSize(true)
         }
 
         adapterAlbumList.setOnItemClickListener { item, _ ->
-            startActivity(Intent(this, ActivityAlbum::class.java).apply {
+            val intent = Intent(this@ActivityAlbumList, ActivityAlbum::class.java).apply {
                 putExtra("albumName", item.albumName)
                 putExtra("albumArt", item.albumArt)
                 putExtra("colorMain", item.colorMain)
-            })
+            }
+            startActivity(intent)
         }
     }
 
+    private fun setSortByList(sortBy: String) {
+        val buttonId = when (sortBy) {
+            "release" -> R.id.btnRelease
+            "title" -> R.id.btnTitle
+            "type" -> R.id.btnType
+            else -> R.id.btnRelease
+        }
+        binding.btnToggleGroup.check(buttonId)
+    }
+
     // 오름차순-내림차순 버튼 이미지 변경
-    private fun setOrderButtonImage(isAscending: Boolean) {
-        btnSort.setImageResource(if (isAscending) R.drawable.icon_ascending else R.drawable.icon_descending)
+    private fun setOrderByButtonImage(isAscending: Boolean) {
+        val icon = if (isAscending) R.drawable.icon_ascending else R.drawable.icon_descending
+        binding.btnOrderBy.setImageResource(icon)
     }
 }

@@ -13,12 +13,12 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 class ActivityAlbumPhoto : AppCompatActivity() {
     private val binding by lazy { ActivityAlbumPhotoBinding.inflate(layoutInflater) }
 
-    private val concept by lazy { intent.getStringExtra("concept") }
-    private val imageUrl by lazy { intent.getStringExtra("imageUrl") }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        val concept = intent.getStringExtra("concept")
+        val imageUrl = intent.getStringExtra("imageUrl")
 
         Glide.with(this).load(imageUrl).placeholder(ColorDrawable(Color.TRANSPARENT)).transition(DrawableTransitionOptions.withCrossFade()).into(binding.imgPhoto)
         concept?.let { binding.txtConcept.text = it }
