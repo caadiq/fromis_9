@@ -13,6 +13,13 @@
     <string name="str_activity_album_song_arranger">편곡</string>
     <string name="str_activity_album_song_lyrics">가사</string>
 
+    <!-- fragment_main_video -->
+    <string name="str_fragment_main_video_all">전체</string>
+    <string name="str_fragment_main_video_mv">뮤직비디오</string>
+    <string name="str_fragment_main_video_channel9">채널나인</string>
+    <string name="str_fragment_main_video_fm124">FM_1.24</string>
+    <string name="str_fragment_main_video_9log">9_log</string>
+    <string name="str_fragment_main_video_fromisoda">프롬이소다</string>
     <!-- fragment_main_schedule -->
     <string name="str_fragment_main_schedule_no_schedule">일정이 없습니다.</string>
     <!-- calendar_day -->
@@ -21,6 +28,9 @@
     <!-- - - - - - - - - - - - - - - - - - - - - - Class - - - - - - - - - - - - - - - - - - - - - - -->
     <!-- ActivityMain -->
     <string name="str_activity_main_press_back">뒤로 가기 버튼을 한 번 더 누르면 종료됩니다.</string>
+    <!-- FragmentMainVideo -->
+    <string name="str_fragment_main_video_title">모든 영상</string>
+    <string name="str_fragment_main_video_search">프로미스나인 영상 검색</string>
     <!-- FragmentMainSchedule -->
     <string name="str_fragment_main_schedule_calendar_title">%1$s년 %2$s월</string>
 
@@ -29,4 +39,6 @@
     <string name="str_menu_main_bottomnav_home">홈</string>
     <string name="str_menu_main_bottomnav_video">영상</string>
     <string name="str_menu_main_bottomnav_schedule">일정</string>
+    <!-- menu_main_video_search -->
+    <string name="str_menu_main_video_search">검색</string>
 </resources>

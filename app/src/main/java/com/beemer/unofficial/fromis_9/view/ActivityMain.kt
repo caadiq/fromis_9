@@ -14,16 +14,12 @@ class ActivityMain : AppCompatActivity() {
 
     private val viewModel: ViewModelMain by lazy { ViewModelProvider(this)[ViewModelMain::class.java] }
 
-    private val toolbar by lazy { binding.toolbar }
-    private val bottomNav by lazy { binding.bottomNav }
-    private val layoutParent by lazy { binding.layoutParent }
-
     private var backPressedTime: Long = 0
     private val onBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
             if (System.currentTimeMillis() - backPressedTime >= 2000) {
                 backPressedTime = System.currentTimeMillis()
-                Snackbar.make(layoutParent, getString(R.string.str_activity_main_press_back), 2000).show()
+                Snackbar.make(binding.layoutParent, getString(R.string.str_activity_main_press_back), 2000).show()
             } else {
                 finish()
             }
@@ -33,9 +29,6 @@ class ActivityMain : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
-        toolbar.title = ""
-        setSupportActionBar(toolbar)
 
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
 
@@ -50,7 +43,7 @@ class ActivityMain : AppCompatActivity() {
             }
         }
 
-        bottomNav.setOnItemSelectedListener { item ->
+        binding.bottomNav.setOnItemSelectedListener { item ->
             viewModel.setCurrentFragmentTag(
                 when (item.itemId) {
                     R.id.home -> "HOME"

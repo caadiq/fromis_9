@@ -13,13 +13,13 @@ class ItemDecoratorDivider(
     private val divRight: Int,
     private val dividerHeight: Int,
     private val dividerMargin: Int,
-    dividerColor: Int
+    dividerColor: Int?
 ) : RecyclerView.ItemDecoration() {
 
     private val paint = Paint()
 
     init {
-        paint.color = dividerColor
+        dividerColor?.let {  paint.color = it }
     }
 
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
