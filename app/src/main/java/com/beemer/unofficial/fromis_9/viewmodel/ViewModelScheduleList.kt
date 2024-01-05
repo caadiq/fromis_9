@@ -1,6 +1,5 @@
 package com.beemer.unofficial.fromis_9.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -21,7 +20,6 @@ class ViewModelScheduleList(private val repository: RepositoryScheduleList) : Vi
     val errorMessage: LiveData<Event<String>> = _errorMessage
 
     fun getScheduleList(year: Int, month: Int) {
-        Log.d("Schedule", "getScheduleList: $year-$month")
         viewModelScope.launch {
             try {
                 val response = repository.getScheduleList(year, month)
