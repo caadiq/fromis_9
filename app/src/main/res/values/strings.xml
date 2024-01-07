@@ -12,6 +12,7 @@
     <string name="str_activity_album_song_composer">작곡</string>
     <string name="str_activity_album_song_arranger">편곡</string>
     <string name="str_activity_album_song_lyrics">가사</string>
+    <string name="str_activity_album_song_play">노래 재생</string>
 
     <!-- fragment_main_video -->
     <string name="str_fragment_main_video_all">전체</string>

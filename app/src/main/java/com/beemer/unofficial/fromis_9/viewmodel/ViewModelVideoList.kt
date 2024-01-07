@@ -49,7 +49,6 @@ class ViewModelVideoList(private val repository: RepositoryVideoList) : ViewMode
                         videoId = it.videoId,
                         publishedAt = publishedAtFormatted,
                         title = it.title,
-                        description = it.description,
                         thumbnailUrl = it.thumbnailUrl
                     )
                 }
@@ -80,7 +79,6 @@ class ViewModelVideoList(private val repository: RepositoryVideoList) : ViewMode
                         videoId = it.videoId,
                         publishedAt = publishedAtFormatted,
                         title = it.title,
-                        description = it.description,
                         thumbnailUrl = it.thumbnailUrl
                     )
                 }

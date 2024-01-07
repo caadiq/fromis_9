@@ -27,6 +27,5 @@ data class Videos(
     val videoId: String,
     val publishedAt: String,
     val title: String,
-    val description: String?,
     val thumbnailUrl: String
 )

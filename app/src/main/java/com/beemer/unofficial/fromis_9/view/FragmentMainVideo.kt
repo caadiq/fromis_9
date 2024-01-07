@@ -1,6 +1,7 @@
 package com.beemer.unofficial.fromis_9.view
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -47,11 +48,11 @@ class FragmentMainVideo : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentMainVideoBinding.inflate(inflater, container, false)
 
-        initToolbar()
-        initMenu()
-        initToggleButton()
-        initRecyclerView()
-        initViewModel()
+        setupToolbar()
+        setupMenu()
+        setupToggleButton()
+        setupRecyclerView()
+        setupViewModel()
 
         return binding.root
     }
@@ -61,13 +62,13 @@ class FragmentMainVideo : Fragment() {
         _binding = null
     }
 
-    private fun initToolbar() {
+    private fun setupToolbar() {
         toolbarTitle = getString(R.string.str_fragment_main_video_title)
         binding.toolbar.title = toolbarTitle
         activityMain.setSupportActionBar(binding.toolbar)
     }
 
-    private fun initMenu() {
+    private fun setupMenu() {
         activityMain.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 menuInflater.inflate(R.menu.menu_main_video_search, menu)
@@ -98,7 +99,7 @@ class FragmentMainVideo : Fragment() {
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
-    private fun initToggleButton() {
+    private fun setupToggleButton() {
         binding.btnToggleGroup.apply {
             selectButton(binding.btnAll)
             viewModel.updateVideoType(currentType)
@@ -119,21 +120,31 @@ class FragmentMainVideo : Fragment() {
         }
     }
 
-    private fun initRecyclerView() {
+    private fun setupRecyclerView() {
         adapterVideoList = AdapterVideoList(binding.recyclerView)
-        binding.recyclerView.adapter = adapterVideoList
-        binding.recyclerView.addOnScrollListener(object: RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
+        binding.recyclerView.apply {
+            adapter = adapterVideoList
+            addOnScrollListener(object: RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
 
-                val lastVisibleItemPosition = (recyclerView.layoutManager as LinearLayoutManager?)?.findLastCompletelyVisibleItemPosition()
-                val itemTotalCount = recyclerView.adapter?.itemCount?.minus(1)
+                    val lastVisibleItemPosition = (recyclerView.layoutManager as LinearLayoutManager?)?.findLastCompletelyVisibleItemPosition()
+                    val itemTotalCount = recyclerView.adapter?.itemCount?.minus(1)
 
-                if (!recyclerView.canScrollVertically(1) && lastVisibleItemPosition == itemTotalCount && !loadingState) {
-                    viewModel.getNextVideoList()
+                    if (!recyclerView.canScrollVertically(1) && lastVisibleItemPosition == itemTotalCount && !loadingState) {
+                        viewModel.getNextVideoList()
+                    }
                 }
+            })
+        }
+
+        adapterVideoList.setOnItemClickListener { item, _ ->
+            val intent = Intent(activityMain, ActivityYouTubeIframe::class.java).apply {
+                putExtra("videoId", item.videoId)
+                putExtra("title", item.title)
             }
-        })
+            startActivity(intent)
+        }
 
         binding.swipeRefreshLayout.setOnRefreshListener {
             viewModel.resetSearchQuery()
@@ -142,7 +153,7 @@ class FragmentMainVideo : Fragment() {
         }
     }
 
-    private fun initViewModel() {
+    private fun setupViewModel() {
         viewModel.apply {
             videoType.observe(viewLifecycleOwner) {
                 currentType = it
