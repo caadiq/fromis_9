@@ -31,6 +31,11 @@ class FragmentAlbumPhotoList : Fragment() {
             adapterPhotoList.setPhotoList(it ?: emptyList())
         }
 
+        setupRecyclerView()
+        return binding.root
+    }
+
+    private fun setupRecyclerView() {
         gridLayoutManager = GridLayoutManager(context, 2)
         binding.recyclerView.apply {
             layoutManager = gridLayoutManager
@@ -39,13 +44,12 @@ class FragmentAlbumPhotoList : Fragment() {
         }
 
         adapterPhotoList.setOnItemClickListener { item, _ ->
-            startActivity(Intent(activityAlbum, ActivityAlbumPhoto::class.java).apply {
+            val intent = Intent(activityAlbum, ActivityAlbumPhoto::class.java).apply {
                 putExtra("concept", item.concept)
                 putExtra("imageUrl", item.imageUrl)
-            })
+            }
+            startActivity(intent)
         }
-
-        return binding.root
     }
 
     override fun onDestroyView() {

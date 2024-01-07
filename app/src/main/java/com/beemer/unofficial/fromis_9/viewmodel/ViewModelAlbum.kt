@@ -32,11 +32,15 @@ class ViewModelAlbum(private val repository: RepositoryAlbumList) : ViewModel() 
                     _description.value = it.description
                 }
                 val colorMain = albumResponse?.colorMain ?: ""
+                val colorPrimary = albumResponse?.colorPrimary ?: ""
+                val colorSecondary = albumResponse?.colorSecondary ?: ""
 
                 _trackList.value = albumResponse?.trackList?.song?.map { song ->
                     DataTrackList(
                         albumName = albumName,
                         colorMain = colorMain,
+                        colorPrimary = colorPrimary,
+                        colorSecondary = colorSecondary,
                         trackNumber = song.trackNumber,
                         songName = song.songName,
                         songLength = song.songLength,

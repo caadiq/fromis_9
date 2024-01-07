@@ -1,5 +1,7 @@
 package com.beemer.unofficial.fromis_9.view
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -20,6 +22,11 @@ class ActivityAlbumSong : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        setupViewModel()
+        setupFAB()
+    }
+
+    private fun setupViewModel() {
         val songName = intent.getStringExtra("songName")
         val albumName = intent.getStringExtra("albumName")
 
@@ -42,6 +49,24 @@ class ActivityAlbumSong : AppCompatActivity() {
                 errorMessage.observe(this@ActivityAlbumSong) { message ->
                     message.getContentIfNotHandled()?.let { Toast.makeText(this@ActivityAlbumSong, it, Toast.LENGTH_SHORT).show() }
                 }
+            }
+        }
+    }
+
+    private fun setupFAB() {
+        val colorPrimary = intent.getStringExtra("colorPrimary")
+        val colorSecondary = intent.getStringExtra("colorSecondary")
+
+        binding.fabPlay.apply {
+            supportBackgroundTintList = ColorStateList.valueOf(Color.parseColor("#$colorPrimary"))
+            supportImageTintList = ColorStateList.valueOf(Color.parseColor("#$colorSecondary"))
+        }
+
+        binding.scrollView.setOnScrollChangeListener { _, _, scrollY, _, oldScrollY ->
+            if (scrollY > oldScrollY) {
+                binding.fabPlay.hide()
+            } else {
+                binding.fabPlay.show()
             }
         }
     }

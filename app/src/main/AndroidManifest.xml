@@ -37,6 +37,10 @@
         <activity
             android:name=".view.ActivityAlbumSong"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.ActivityYouTubeIframe"
+            android:configChanges="orientation|screenSize|smallestScreenSize|screenLayout|keyboard|keyboardHidden"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

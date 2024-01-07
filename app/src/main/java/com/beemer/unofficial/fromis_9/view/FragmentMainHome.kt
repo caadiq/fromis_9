@@ -32,6 +32,11 @@ class FragmentMainHome : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentMainHomeBinding.inflate(inflater, container, false)
 
+        setupRecyclerView()
+        return binding.root
+    }
+
+    private fun setupRecyclerView() {
         gridLayoutManager = GridLayoutManager(context, 2)
         gridLayoutManager.spanSizeLookup = object : SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
@@ -61,7 +66,6 @@ class FragmentMainHome : Fragment() {
                 }
             }
         }
-        return binding.root
     }
 
     override fun onDestroyView() {

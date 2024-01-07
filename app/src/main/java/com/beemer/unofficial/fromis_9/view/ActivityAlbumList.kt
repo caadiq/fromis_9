@@ -24,6 +24,13 @@ class ActivityAlbumList : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        setupViewModel()
+        setupToggleGroupListener()
+        setupOrderButtonListener()
+        setupRecyclerView()
+    }
+
+    private fun setupViewModel() {
         viewModel.apply {
             getAlbumList()
 
@@ -34,10 +41,6 @@ class ActivityAlbumList : AppCompatActivity() {
                 message.getContentIfNotHandled()?.let { Toast.makeText(this@ActivityAlbumList, it, Toast.LENGTH_SHORT).show() }
             }
         }
-
-        setupToggleGroupListener()
-        setupOrderButtonListener()
-        setupRecyclerView()
     }
 
     private fun setupToggleGroupListener() {

@@ -25,9 +25,10 @@ class ActivityAlbumPhoto : AppCompatActivity() {
 
         binding.imgPhoto.setOnClickListener {
             val options  = ActivityOptions.makeSceneTransitionAnimation(this, binding.imgPhoto, "transitionImagePhoto").toBundle()
-            startActivity(Intent(this, ActivityAlbumPhotoZoom::class.java).apply {
+            val intent = Intent(this, ActivityAlbumPhotoZoom::class.java).apply {
                 putExtra("imageUrl", imageUrl)
-            }, options)
+            }
+            startActivity(intent, options)
         }
     }
 }

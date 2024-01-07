@@ -4,6 +4,5 @@ data class DataVideoList(
     val videoId: String,
     val publishedAt: String,
     val title: String,
-    val description: String?,
     val thumbnailUrl: String
 )

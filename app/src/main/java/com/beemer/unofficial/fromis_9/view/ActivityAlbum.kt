@@ -27,9 +27,9 @@ class ActivityAlbum : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        val albumName by lazy { intent.getStringExtra("albumName") }
-        val albumArt by lazy { intent.getStringExtra("albumArt") }
-        val colorMain by lazy { intent.getStringExtra("colorMain") }
+        val albumName = intent.getStringExtra("albumName")
+        val albumArt = intent.getStringExtra("albumArt")
+        val colorMain = intent.getStringExtra("colorMain")
 
         Glide.with(this).load(albumArt).placeholder(ColorDrawable(Color.TRANSPARENT)).into(binding.imgAlbumArt)
 

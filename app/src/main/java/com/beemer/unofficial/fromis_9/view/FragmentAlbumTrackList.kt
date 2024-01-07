@@ -29,6 +29,11 @@ class FragmentAlbumTrackList : Fragment() {
             adapterTrackList.setTrackList(it ?: emptyList())
         }
 
+        setupRecyclerView()
+        return binding.root
+    }
+
+    private fun setupRecyclerView() {
         binding.recyclerView.apply {
             adapter = adapterTrackList
             setHasFixedSize(true)
@@ -38,9 +43,10 @@ class FragmentAlbumTrackList : Fragment() {
             startActivity(Intent(activityAlbum, ActivityAlbumSong::class.java).apply {
                 putExtra("albumName", item.albumName)
                 putExtra("songName", item.songName)
+                putExtra("colorPrimary", item.colorPrimary)
+                putExtra("colorSecondary", item.colorSecondary)
             })
         }
-        return binding.root
     }
 
     override fun onDestroyView() {
