@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide
 
 class AdapterSchedule : RecyclerView.Adapter<AdapterSchedule.ViewHolder>() {
     private var itemList = mutableListOf<DataSchedule>()
+    private var onItemClickListener: ((DataSchedule, Int) -> Unit)? = null
 
     override fun getItemCount(): Int = itemList.size
 
@@ -28,6 +29,15 @@ class AdapterSchedule : RecyclerView.Adapter<AdapterSchedule.ViewHolder>() {
     }
 
     inner class ViewHolder(private val binding: RowScheduleBinding) : RecyclerView.ViewHolder(binding.root) {
+        init {
+            itemView.setOnClickListener {
+                val position = bindingAdapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    onItemClickListener?.invoke(itemList[position], position)
+                }
+            }
+        }
+
         fun bind(item: DataSchedule) {
             Glide.with(binding.root).load(item.image).placeholder(ColorDrawable(Color.TRANSPARENT)).into(binding.imgIcon)
             binding.txtSchedule.text = item.schedule
@@ -39,6 +49,10 @@ class AdapterSchedule : RecyclerView.Adapter<AdapterSchedule.ViewHolder>() {
                 binding.txtDescription.visibility = View.VISIBLE
             }
         }
+    }
+
+    fun setOnItemClickListener(listener: (DataSchedule, Int) -> Unit) {
+        onItemClickListener = listener
     }
 
     fun setSchedule(newSchedule: List<DataSchedule>) {
