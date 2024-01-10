@@ -1,8 +1,11 @@
 package com.beemer.unofficial.fromis_9.view
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,6 +36,7 @@ import java.time.format.DateTimeFormatter
 import java.time.format.TextStyle
 import java.time.temporal.WeekFields
 import java.util.Locale
+
 
 class DayViewContainer(view: View) : ViewContainer(view) {
     val calendarDayText: TextView = view.findViewById(R.id.calendarDayText)
@@ -208,6 +212,16 @@ class FragmentMainSchedule : Fragment() {
             adapter = adapterSchedule
             addItemDecoration(ItemDecoratorDivider(20, 0, 0, 0, 1, 10, Color.GRAY))
             itemAnimator = null
+        }
+
+        adapterSchedule.setOnItemClickListener { item, _ ->
+            Log.d("테스트", "setOnItemClickListener")
+            item.url?.let {
+                Log.d("테스트", "url: $it")
+                val intent = Intent(Intent.ACTION_VIEW)
+                intent.data = Uri.parse(it)
+                startActivity(intent)
+            }
         }
     }
 

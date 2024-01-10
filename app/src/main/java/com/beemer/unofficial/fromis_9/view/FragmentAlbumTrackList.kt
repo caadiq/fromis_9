@@ -40,12 +40,13 @@ class FragmentAlbumTrackList : Fragment() {
         }
 
         adapterTrackList.setOnItemClickListener { item, _ ->
-            startActivity(Intent(activityAlbum, ActivityAlbumSong::class.java).apply {
+            val intent = Intent(activityAlbum, ActivityAlbumSong::class.java).apply {
                 putExtra("albumName", item.albumName)
                 putExtra("songName", item.songName)
                 putExtra("colorPrimary", item.colorPrimary)
                 putExtra("colorSecondary", item.colorSecondary)
-            })
+            }
+            startActivity(intent)
         }
     }
 

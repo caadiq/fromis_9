@@ -17,6 +17,7 @@ data class ScheduleListResponse(
     val dateTime: String,
     val schedule: String,
     val description: String?,
+    val url: String?,
     @SerializedName("icon") val icon: Icon
 )
 

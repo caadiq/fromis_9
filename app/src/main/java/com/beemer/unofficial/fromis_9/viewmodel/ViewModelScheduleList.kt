@@ -33,6 +33,7 @@ class ViewModelScheduleList(private val repository: RepositoryScheduleList) : Vi
                         time = time,
                         schedule = it.schedule,
                         description = it.description,
+                        url = it.url,
                         image = it.icon.imageUrl
                     )
 
