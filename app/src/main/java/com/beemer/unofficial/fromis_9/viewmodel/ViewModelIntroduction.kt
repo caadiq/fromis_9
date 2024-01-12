@@ -37,7 +37,7 @@ class ViewModelIntroduction(private val repository: RepositoryIntroduction) : Vi
                         imageUrl = member.imageUrl,
                         birth = member.birth,
                         position = member.position,
-                        instagram = member.instagram
+                        blood = member.blood
                     )
                 }
             } catch (_: Exception) {

@@ -35,17 +35,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/viewPager" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/txtDebut"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imgLogo"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="32dp"
-                android:fontFamily="@font/nanum_square_round_extra_bold"
-                android:includeFontPadding="false"
-                android:text="@string/str_activity_introduction_debut"
-                android:textColor="@color/colorPrimary"
-                android:textSize="40dp"
+                android:background="@drawable/drawable_logo_background"
+                android:padding="8dp"
+                android:src="@drawable/icon_fromis9"
+                android:tint="@color/colorOnPrimary"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/dotsIndicator" />
 
@@ -53,26 +52,25 @@
                 android:id="@+id/txtDebutDDay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="16dp"
                 android:fontFamily="@font/nanum_square_round_extra_bold"
                 android:includeFontPadding="false"
                 android:textColor="@color/dark_gray"
                 android:textSize="24dp"
                 app:layout_constraintBottom_toTopOf="@+id/txtDebutDate"
-                app:layout_constraintStart_toEndOf="@+id/txtDebut"
-                app:layout_constraintTop_toTopOf="@+id/txtDebut" />
+                app:layout_constraintStart_toEndOf="@+id/imgLogo"
+                app:layout_constraintTop_toTopOf="@+id/imgLogo" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/txtDebutDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
                 android:fontFamily="@font/nanum_square_round_extra_bold"
                 android:includeFontPadding="false"
                 android:textColor="@color/gray"
                 android:textSize="16dp"
-                app:layout_constraintBottom_toBottomOf="@+id/txtDebut"
-                app:layout_constraintStart_toEndOf="@+id/txtDebut"
+                app:layout_constraintBottom_toBottomOf="@+id/imgLogo"
+                app:layout_constraintStart_toStartOf="@+id/txtDebutDDay"
                 app:layout_constraintTop_toBottomOf="@+id/txtDebutDDay" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -81,9 +79,9 @@
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
                 android:padding="8dp"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txtDebut" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/imgLogo" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
