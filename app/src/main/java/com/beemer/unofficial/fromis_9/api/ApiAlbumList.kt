@@ -53,7 +53,8 @@ data class Song(
     val lyrics: String,
     val songLength: String,
     val trackNumber: Int,
-    val titleTrack: Boolean
+    val titleTrack: Boolean,
+    val videoId: String
 )
 
 data class Photo(

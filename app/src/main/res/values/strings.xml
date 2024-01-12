@@ -13,6 +13,8 @@
     <string name="str_activity_album_song_arranger">편곡</string>
     <string name="str_activity_album_song_lyrics">가사</string>
     <string name="str_activity_album_song_play">노래 재생</string>
+    <!-- activity_introduction -->
+    <string name="str_activity_introduction_debut">데뷔일</string>
 
     <!-- fragment_main_video -->
     <string name="str_fragment_main_video_all">전체</string>
@@ -29,6 +31,8 @@
     <!-- - - - - - - - - - - - - - - - - - - - - - Class - - - - - - - - - - - - - - - - - - - - - - -->
     <!-- ActivityMain -->
     <string name="str_activity_main_press_back">뒤로 가기 버튼을 한 번 더 누르면 종료됩니다.</string>
+    <!-- ActivityIntroduction -->
+    <string name="str_activity_introduction_debut_dday">D+%1$s</string>
     <!-- FragmentMainVideo -->
     <string name="str_fragment_main_video_title">모든 영상</string>
     <string name="str_fragment_main_video_search">프로미스나인 영상 검색</string>

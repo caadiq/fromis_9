@@ -2,6 +2,7 @@ package com.beemer.unofficial.fromis_9.service
 
 import com.beemer.unofficial.fromis_9.BuildConfig
 import com.beemer.unofficial.fromis_9.api.ApiAlbumList
+import com.beemer.unofficial.fromis_9.api.ApiIntroduction
 import com.beemer.unofficial.fromis_9.api.ApiScheduleList
 import com.beemer.unofficial.fromis_9.api.ApiVideoList
 import retrofit2.Retrofit
@@ -23,5 +24,9 @@ object RetrofitService {
 
     val apiVideoList: ApiVideoList by lazy {
         retrofit.create(ApiVideoList::class.java)
+    }
+
+    val apiIntroduction: ApiIntroduction by lazy {
+        retrofit.create(ApiIntroduction::class.java)
     }
 }

@@ -45,6 +45,7 @@ class ViewModelAlbum(private val repository: RepositoryAlbumList) : ViewModel() 
                         songName = song.songName,
                         songLength = song.songLength,
                         titleTrack = song.titleTrack,
+                        videoId = song.videoId
                     )
                 }
 

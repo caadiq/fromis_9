@@ -8,5 +8,6 @@ data class DataTrackList(
     val trackNumber: Int,
     val songName: String,
     val songLength: String,
-    val titleTrack: Boolean
+    val titleTrack: Boolean,
+    val videoId: String
 )

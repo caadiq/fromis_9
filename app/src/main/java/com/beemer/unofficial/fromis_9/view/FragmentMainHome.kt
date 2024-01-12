@@ -60,7 +60,7 @@ class FragmentMainHome : Fragment() {
             setHome(homeItemList)
             setOnItemClickListener { _, position ->
                 when (position) {
-                    0 -> Toast.makeText(context, "프로미스나인", Toast.LENGTH_SHORT).show()
+                    0 -> startActivity(Intent(activityMain, ActivityIntroduction::class.java))
                     1 -> startActivity(Intent(activityMain, ActivityAlbumList::class.java))
                     2 -> Toast.makeText(context, "응원법", Toast.LENGTH_SHORT).show()
                 }
