@@ -1,7 +1,6 @@
 package com.beemer.unofficial.fromis_9.view
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -111,7 +110,13 @@ class ActivityIntroduction : AppCompatActivity() {
         }
 
         adapterMembers.setOnItemClickListener { item, _ ->
-            Toast.makeText(this, item.name, Toast.LENGTH_SHORT).show()
+            DialogMember.newInstance(
+                imageUrl = item.imageUrl,
+                name = item.name,
+                birth = item.birth,
+                blood = item.blood,
+                position = item.position
+            ).show(supportFragmentManager, "DialogMember")
         }
     }
 }

@@ -27,6 +27,10 @@
     <string name="str_fragment_main_schedule_no_schedule">일정이 없습니다.</string>
     <!-- calendar_day -->
     <string name="str_calendar_day_dot">●</string>
+    <!-- dialog_member -->
+    <string name="str_dialog_member_birth">출생</string>
+    <string name="str_dialog_member_blood">혈액형</string>
+    <string name="str_dialog_member_position">포지션</string>
 
     <!-- - - - - - - - - - - - - - - - - - - - - - Class - - - - - - - - - - - - - - - - - - - - - - -->
     <!-- ActivityMain -->
@@ -38,6 +42,8 @@
     <string name="str_fragment_main_video_search">프로미스나인 영상 검색</string>
     <!-- FragmentMainSchedule -->
     <string name="str_fragment_main_schedule_calendar_title">%1$s년 %2$s월</string>
+    <!-- DialogMember -->
+    <string name="str_dialog_member_blood_type">%1$s형</string>
 
     <!-- - - - - - - - - - - - - - - - - - - - - - Menu - - - - - - - - - - - - - - - - - - - - - - -->
     <!-- menu_main_bottomnav -->

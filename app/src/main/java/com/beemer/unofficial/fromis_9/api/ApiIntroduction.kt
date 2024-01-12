@@ -26,5 +26,5 @@ data class Member(
     val imageUrl: String,
     val birth: String,
     val position: String,
-    val instagram: String
+    val blood: String
 )
