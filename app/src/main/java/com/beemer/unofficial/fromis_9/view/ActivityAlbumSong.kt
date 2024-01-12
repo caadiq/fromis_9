@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.beemer.unofficial.fromis_9.databinding.ActivityAlbumSongBinding
 import com.beemer.unofficial.fromis_9.repository.RepositoryAlbumList
 import com.beemer.unofficial.fromis_9.service.RetrofitService
+import com.beemer.unofficial.fromis_9.utils.OpenYouTube
 import com.beemer.unofficial.fromis_9.viewmodel.ViewModelFactory
 import com.beemer.unofficial.fromis_9.viewmodel.ViewModelSong
 
@@ -56,10 +57,12 @@ class ActivityAlbumSong : AppCompatActivity() {
     private fun setupFAB() {
         val colorPrimary = intent.getStringExtra("colorPrimary")
         val colorSecondary = intent.getStringExtra("colorSecondary")
+        val videoId = intent.getStringExtra("videoId")
 
         binding.fabPlay.apply {
             supportBackgroundTintList = ColorStateList.valueOf(Color.parseColor("#$colorPrimary"))
             supportImageTintList = ColorStateList.valueOf(Color.parseColor("#$colorSecondary"))
+            setOnClickListener { videoId?.let { OpenYouTube.openYoutube(this@ActivityAlbumSong, it) } }
         }
 
         binding.scrollView.setOnScrollChangeListener { _, _, scrollY, _, oldScrollY ->

@@ -45,6 +45,7 @@ class FragmentAlbumTrackList : Fragment() {
                 putExtra("songName", item.songName)
                 putExtra("colorPrimary", item.colorPrimary)
                 putExtra("colorSecondary", item.colorSecondary)
+                putExtra("videoId", item.videoId)
             }
             startActivity(intent)
         }

@@ -3,6 +3,7 @@ package com.beemer.unofficial.fromis_9.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.beemer.unofficial.fromis_9.repository.RepositoryAlbumList
+import com.beemer.unofficial.fromis_9.repository.RepositoryIntroduction
 import com.beemer.unofficial.fromis_9.repository.RepositoryScheduleList
 import com.beemer.unofficial.fromis_9.repository.RepositoryVideoList
 
@@ -15,6 +16,7 @@ class ViewModelFactory(private val repository: Any) : ViewModelProvider.Factory 
             ViewModelSong::class.java -> ViewModelSong(repository as RepositoryAlbumList) as T
             ViewModelScheduleList::class.java -> ViewModelScheduleList(repository as RepositoryScheduleList) as T
             ViewModelVideoList::class.java -> ViewModelVideoList(repository as RepositoryVideoList) as T
+            ViewModelIntroduction::class.java -> ViewModelIntroduction(repository as RepositoryIntroduction) as T
             else -> throw IllegalArgumentException("Unknown ViewModel class")
         }
     }

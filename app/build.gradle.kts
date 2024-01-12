@@ -65,7 +65,7 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.datastore:datastore-preferences:1.0.0")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     implementation("com.google.android.material:material:1.11.0")
 
@@ -78,4 +78,5 @@ dependencies {
     implementation("com.kizitonwose.calendar:view:2.4.1") // Calendar
     implementation("com.github.MikeOrtiz:TouchImageView:3.6") // Pinch Zoom
     implementation("nl.bryanderidder:themed-toggle-button-group:1.4.1") // Toggle Button
+    implementation("com.tbuonomo:dotsindicator:5.0") // Dots Indicator
 }

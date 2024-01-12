@@ -79,18 +79,21 @@ class ActivityAlbumPhotoZoom : AppCompatActivity() {
         }
     }
 
+    // 현재 날짜 및 시간으로 파일 이름 설정
     private fun createFileName(url: String): String {
         val format = Uri.parse(url).getQueryParameter("format")?.lowercase() ?: "jpg"
         val date = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
         return "$date.$format"
     }
 
+    // 파일 확장자 설정
     private fun determineMimeType(url: String): String = when (Uri.parse(url).getQueryParameter("format")?.lowercase()) {
         "jpg" -> "image/jpeg"
         "png" -> "image/png"
         else -> "image/jpeg"
     }
 
+    // 다운로드 매니저로 이미지 다운로드
     private fun enqueueDownload(url: String, fileName: String, mimeType: String) {
         val downloadManager = getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
         val request = DownloadManager.Request(Uri.parse(url))
