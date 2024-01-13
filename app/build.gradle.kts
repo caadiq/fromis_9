@@ -5,6 +5,7 @@ import java.util.Properties
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.mikepenz.aboutlibraries.plugin")
 }
 
 val properties = Properties().apply {
@@ -79,4 +80,5 @@ dependencies {
     implementation("com.github.MikeOrtiz:TouchImageView:3.6") // Pinch Zoom
     implementation("nl.bryanderidder:themed-toggle-button-group:1.4.1") // Toggle Button
     implementation("com.tbuonomo:dotsindicator:5.0") // Dots Indicator
+    implementation("com.mikepenz:aboutlibraries:8.9.4") // About Libraries
 }
