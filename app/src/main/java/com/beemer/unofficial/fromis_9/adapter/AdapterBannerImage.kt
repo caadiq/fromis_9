@@ -27,7 +27,6 @@ class AdapterBannerImage(private val images: List<DataBannerImage>) : RecyclerVi
             Glide.with(binding.root)
                 .load(item.imageUrl)
                 .placeholder(ColorDrawable(Color.TRANSPARENT))
-                .sizeMultiplier(0.8f)
                 .into(binding.imageView)
         }
     }
