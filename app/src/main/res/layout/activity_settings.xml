@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imgLogo"
+                android:layout_width="104dp"
+                android:layout_height="104dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/drawable_logo_background_rounded"
+                android:padding="16dp"
+                android:src="@drawable/icon_fromis9"
+                android:tint="@color/colorOnPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtSettings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="48dp"
+                android:layout_marginTop="48dp"
+                android:fontFamily="@font/nanum_square_round_extra_bold"
+                android:text="@string/str_activity_settings_settings"
+                android:textColor="@color/dark_gray"
+                android:textSize="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imgLogo" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutSettings"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="32dp"
+                android:background="@drawable/drawable_settings_layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtSettings">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txtDarkMode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:fontFamily="@font/nanum_square_round_extra_bold"
+                    android:text="@string/str_activity_settings_darkmode"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switchDarkMode"
+                    style="@style/StyleSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="48dp"
+                android:layout_marginTop="48dp"
+                android:fontFamily="@font/nanum_square_round_extra_bold"
+                android:text="@string/str_activity_settings_info"
+                android:textColor="@color/dark_gray"
+                android:textSize="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layoutSettings" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutInfo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="32dp"
+                android:background="@drawable/drawable_settings_layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtInfo">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txtVersion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/nanum_square_round_extra_bold"
+                    android:text="@string/str_activity_settings_version"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="20dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/viewVersion"
+                    android:layout_width="1dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:background="@color/light_gray"
+                    app:layout_constraintBottom_toBottomOf="@+id/txtVersion"
+                    app:layout_constraintStart_toEndOf="@+id/txtVersion"
+                    app:layout_constraintTop_toTopOf="@+id/txtVersion" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txtCurrentVersion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="16dp"
+                    android:fontFamily="@font/nanum_square_round_extra_bold"
+                    android:textColor="@color/gray"
+                    android:textSize="20dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/txtVersion"
+                    app:layout_constraintStart_toEndOf="@+id/viewVersion"
+                    app:layout_constraintTop_toTopOf="@+id/txtVersion" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnUpdate"
+                    android:layout_width="72dp"
+                    android:layout_height="36dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/drawable_button_outlined"
+                    android:enabled="false"
+                    android:stateListAnimator="@null"
+                    android:text="@string/str_activity_settings_version_update"
+                    android:textColor="@color/color_button_text"
+                    android:textSize="12dp"
+                    app:layout_constraintBottom_toTopOf="@+id/viewDivider"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/viewDivider"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@color/light_gray"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtVersion" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txtCache"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:fontFamily="@font/nanum_square_round_extra_bold"
+                    android:text="@string/str_activity_settings_cache"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/viewDivider" />
+
+                <View
+                    android:id="@+id/viewCache"
+                    android:layout_width="1dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:background="@color/light_gray"
+                    app:layout_constraintBottom_toBottomOf="@+id/txtCache"
+                    app:layout_constraintStart_toEndOf="@+id/txtCache"
+                    app:layout_constraintTop_toTopOf="@+id/txtCache" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txtCurrentCache"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="16dp"
+                    android:fontFamily="@font/nanum_square_round_extra_bold"
+                    android:textColor="@color/gray"
+                    android:textSize="20dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/txtCache"
+                    app:layout_constraintStart_toEndOf="@+id/viewCache"
+                    app:layout_constraintTop_toTopOf="@+id/txtCache" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnRemoveCache"
+                    android:layout_width="72dp"
+                    android:layout_height="36dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/drawable_button_outlined"
+                    android:stateListAnimator="@null"
+                    android:text="@string/str_activity_settings_cache_clear"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="12dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/viewDivider" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/txtLicense"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="48dp"
+                android:layout_marginTop="48dp"
+                android:fontFamily="@font/nanum_square_round_extra_bold"
+                android:text="@string/str_activity_settings_license"
+                android:textColor="@color/dark_gray"
+                android:textSize="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layoutInfo" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/btnLicense"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="32dp"
+                android:background="@drawable/drawable_button_license"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/nanum_square_round_extra_bold"
+                android:gravity="center_vertical|start"
+                android:paddingStart="20dp"
+                android:paddingEnd="0dp"
+                android:text="@string/str_activity_settings_license_detail"
+                android:textColor="@color/dark_gray"
+                android:textSize="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtLicense" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

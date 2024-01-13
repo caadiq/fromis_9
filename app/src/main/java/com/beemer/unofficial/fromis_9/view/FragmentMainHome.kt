@@ -32,6 +32,10 @@ class FragmentMainHome : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentMainHomeBinding.inflate(inflater, container, false)
 
+        binding.btnSettings.setOnClickListener {
+            startActivity(Intent(activityMain, ActivitySettings::class.java))
+        }
+
         setupRecyclerView()
         return binding.root
     }

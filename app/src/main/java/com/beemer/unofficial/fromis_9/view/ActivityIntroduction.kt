@@ -12,6 +12,7 @@ import com.beemer.unofficial.fromis_9.data.DataBannerImage
 import com.beemer.unofficial.fromis_9.databinding.ActivityIntroductionBinding
 import com.beemer.unofficial.fromis_9.repository.RepositoryIntroduction
 import com.beemer.unofficial.fromis_9.service.RetrofitService
+import com.beemer.unofficial.fromis_9.ui.ItemDecoratorDivider
 import com.beemer.unofficial.fromis_9.viewmodel.ViewModelFactory
 import com.beemer.unofficial.fromis_9.viewmodel.ViewModelIntroduction
 import kotlinx.coroutines.Job
@@ -106,6 +107,7 @@ class ActivityIntroduction : AppCompatActivity() {
         binding.recyclerView.apply {
             layoutManager = gridLayoutManager
             adapter = adapterMembers
+            addItemDecoration(ItemDecoratorDivider(0, 24, 16, 16, 0, 0, null))
             setHasFixedSize(true)
         }
 
