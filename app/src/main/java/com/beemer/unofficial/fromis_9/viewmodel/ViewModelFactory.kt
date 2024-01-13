@@ -6,6 +6,7 @@ import com.beemer.unofficial.fromis_9.repository.RepositoryAlbumList
 import com.beemer.unofficial.fromis_9.repository.RepositoryIntroduction
 import com.beemer.unofficial.fromis_9.repository.RepositoryScheduleList
 import com.beemer.unofficial.fromis_9.repository.RepositoryVideoList
+import java.io.File
 
 class ViewModelFactory(private val repository: Any) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
@@ -19,5 +20,15 @@ class ViewModelFactory(private val repository: Any) : ViewModelProvider.Factory 
             ViewModelIntroduction::class.java -> ViewModelIntroduction(repository as RepositoryIntroduction) as T
             else -> throw IllegalArgumentException("Unknown ViewModel class")
         }
+    }
+}
+
+class ViewModelSettingsFactory(private val cacheDir: File, private val externalCacheDir: File?) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(ViewModelSettings::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return ViewModelSettings(cacheDir, externalCacheDir) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }
