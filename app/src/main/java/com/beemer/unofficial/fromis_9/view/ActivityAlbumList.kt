@@ -16,7 +16,7 @@ import com.beemer.unofficial.fromis_9.viewmodel.ViewModelFactory
 class ActivityAlbumList : AppCompatActivity() {
     private val binding by lazy { ActivityAlbumListBinding.inflate(layoutInflater) }
 
-    private val viewModel: ViewModelAlbumList by lazy { ViewModelProvider(this, ViewModelFactory(RepositoryAlbumList(RetrofitService.apiAlbumList, this)))[ViewModelAlbumList::class.java] }
+    private val viewModel: ViewModelAlbumList by lazy { ViewModelProvider(this, ViewModelFactory(RepositoryAlbumList(RetrofitService.apiAlbumList)))[ViewModelAlbumList::class.java] }
 
     private val adapterAlbumList = AdapterAlbumList()
 

@@ -21,7 +21,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 class ActivityAlbum : AppCompatActivity() {
     private val binding by lazy { ActivityAlbumBinding.inflate(layoutInflater) }
 
-    val viewModel: ViewModelAlbum by lazy { ViewModelProvider(this, ViewModelFactory(RepositoryAlbumList(RetrofitService.apiAlbumList, this)))[ViewModelAlbum::class.java] }
+    val viewModel: ViewModelAlbum by lazy { ViewModelProvider(this, ViewModelFactory(RepositoryAlbumList(RetrofitService.apiAlbumList)))[ViewModelAlbum::class.java] }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

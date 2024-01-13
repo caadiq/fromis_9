@@ -17,7 +17,7 @@ import com.beemer.unofficial.fromis_9.viewmodel.ViewModelSong
 class ActivityAlbumSong : AppCompatActivity() {
     private val binding by lazy { ActivityAlbumSongBinding.inflate(layoutInflater) }
 
-    private val viewModel: ViewModelSong by lazy { ViewModelProvider(this, ViewModelFactory(RepositoryAlbumList(RetrofitService.apiAlbumList, this)))[ViewModelSong::class.java] }
+    private val viewModel: ViewModelSong by lazy { ViewModelProvider(this, ViewModelFactory(RepositoryAlbumList(RetrofitService.apiAlbumList)))[ViewModelSong::class.java] }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

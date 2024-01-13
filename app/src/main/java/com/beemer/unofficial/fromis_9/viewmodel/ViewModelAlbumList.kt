@@ -5,11 +5,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.beemer.unofficial.fromis_9.data.DataAlbumList
+import com.beemer.unofficial.fromis_9.datastore.Preferences
 import com.beemer.unofficial.fromis_9.repository.RepositoryAlbumList
 import com.beemer.unofficial.fromis_9.utils.Event
+import com.beemer.unofficial.fromis_9.utils.MyApplication
 import kotlinx.coroutines.launch
 
 class ViewModelAlbumList(private val repository: RepositoryAlbumList) : ViewModel() {
+    private val context = MyApplication.instance
+
     private val _albumList = MutableLiveData<List<DataAlbumList>>()
     val albumList: LiveData<List<DataAlbumList>> = _albumList
 
@@ -28,14 +32,14 @@ class ViewModelAlbumList(private val repository: RepositoryAlbumList) : ViewMode
 
     private fun loadPreferences() {
         viewModelScope.launch {
-            _sortBy.value = repository.getSortBy()
-            _isAscending.value = repository.getIsAscending()
+            _sortBy.value = Preferences.getSortBy(context)
+            _isAscending.value = Preferences.getIsAscending(context)
         }
     }
 
     fun updateSortBy(sortBy: String) {
         viewModelScope.launch {
-            repository.setSortBy(sortBy)
+            Preferences.setSortBy(context, sortBy)
             _sortBy.value = sortBy
             _albumList.value?.let {
                 sortAlbumList()
@@ -45,7 +49,7 @@ class ViewModelAlbumList(private val repository: RepositoryAlbumList) : ViewMode
 
     fun updateIsAscending(isAscending: Boolean) {
         viewModelScope.launch {
-            repository.setIsAscending(isAscending)
+            Preferences.setIsAscending(context, isAscending)
             _isAscending.value = isAscending
             _albumList.value?.let {
                 sortAlbumList()
