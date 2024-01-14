@@ -20,7 +20,7 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 
 class AdapterVideoList(private val recyclerView: RecyclerView) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    var itemList = mutableListOf<DataVideoList>()
+    private var itemList = mutableListOf<DataVideoList>()
     private var onItemClickListener: ((DataVideoList, Int) -> Unit)? = null
     private var isLoading = false
 

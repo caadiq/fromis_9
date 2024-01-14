@@ -5,7 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.beemer.unofficial.fromis_9.data.DataChangelog
 import com.beemer.unofficial.fromis_9.datastore.Preferences
+import com.beemer.unofficial.fromis_9.repository.RepositoryAppInfo
+import com.beemer.unofficial.fromis_9.utils.Event
 import com.beemer.unofficial.fromis_9.utils.MyApplication
 import kotlinx.coroutines.launch
 import java.io.File
@@ -13,7 +16,7 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 import java.text.NumberFormat
 
-class ViewModelSettings(private val cacheDir: File, private val externalCacheDir: File?) : ViewModel() {
+class ViewModelSettings(private val repository: RepositoryAppInfo, private val cacheDir: File, private val externalCacheDir: File?) : ViewModel() {
     private val context = MyApplication.instance
 
     private val _cacheSize = MutableLiveData<String>()
@@ -28,16 +31,17 @@ class ViewModelSettings(private val cacheDir: File, private val externalCacheDir
     private val _isDarkMode = MutableLiveData<Boolean>()
     val isDarkMode: LiveData<Boolean> = _isDarkMode
 
+    private val _changeLog = MutableLiveData<List<DataChangelog>>()
+    val changeLog: LiveData<List<DataChangelog>> = _changeLog
+
+    private val _errorMessage = MutableLiveData<Event<String>>()
+    val errorMessage: LiveData<Event<String>> = _errorMessage
+
     init {
         loadPreferences()
         updateCacheSize()
         getAppVersion()
-    }
-
-    private fun loadPreferences() {
-        viewModelScope.launch {
-            _isDarkMode.value = Preferences.getIsDarkMode(context)
-        }
+        getAppInfo()
     }
 
     fun updateIsDarkMode(isDarkMode: Boolean) {
@@ -50,6 +54,12 @@ class ViewModelSettings(private val cacheDir: File, private val externalCacheDir
     fun updateCacheSize() {
         val cacheSizeValue = getCacheSize()
         _cacheSize.postValue(cacheSizeValue)
+    }
+
+    private fun loadPreferences() {
+        viewModelScope.launch {
+            _isDarkMode.value = Preferences.getIsDarkMode(context)
+        }
     }
 
     private fun getCacheSize(): String {
@@ -76,6 +86,26 @@ class ViewModelSettings(private val cacheDir: File, private val externalCacheDir
            _version.value = versionName
         } catch (_: PackageManager.NameNotFoundException) {
             _version.value = null
+        }
+    }
+
+    private fun getAppInfo() {
+        viewModelScope.launch {
+            try {
+                val response = repository.getAppInfo()
+                val latestVersion = response.first().version
+                val currentVersion = version.value
+                _changeLog.value = response.map {
+                    DataChangelog(
+                        version = it.version,
+                        release = it.release,
+                        changelog = it.changelog
+                    )
+                }
+                _canUpdate.value = latestVersion != currentVersion
+            } catch (_: Exception) {
+                _errorMessage.value = Event("앱 정보를 불러오지 못했습니다.")
+            }
         }
     }
 }

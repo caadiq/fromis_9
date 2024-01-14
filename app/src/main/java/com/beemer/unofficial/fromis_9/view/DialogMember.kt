@@ -12,7 +12,7 @@ import com.beemer.unofficial.fromis_9.databinding.DialogMemberBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 
-class DialogMember() : DialogFragment() {
+class DialogMember : DialogFragment() {
     private var _binding: DialogMemberBinding? = null
     private val binding get() = _binding!!
 

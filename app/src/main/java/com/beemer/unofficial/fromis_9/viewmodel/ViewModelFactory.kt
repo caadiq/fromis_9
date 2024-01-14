@@ -3,6 +3,7 @@ package com.beemer.unofficial.fromis_9.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.beemer.unofficial.fromis_9.repository.RepositoryAlbumList
+import com.beemer.unofficial.fromis_9.repository.RepositoryAppInfo
 import com.beemer.unofficial.fromis_9.repository.RepositoryIntroduction
 import com.beemer.unofficial.fromis_9.repository.RepositoryScheduleList
 import com.beemer.unofficial.fromis_9.repository.RepositoryVideoList
@@ -23,11 +24,11 @@ class ViewModelFactory(private val repository: Any) : ViewModelProvider.Factory 
     }
 }
 
-class ViewModelSettingsFactory(private val cacheDir: File, private val externalCacheDir: File?) : ViewModelProvider.Factory {
+class ViewModelSettingsFactory(private val repository: RepositoryAppInfo, private val cacheDir: File, private val externalCacheDir: File?) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(ViewModelSettings::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return ViewModelSettings(cacheDir, externalCacheDir) as T
+            return ViewModelSettings(repository, cacheDir, externalCacheDir) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

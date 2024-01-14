@@ -18,7 +18,7 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 
 class AdapterPhotoList : RecyclerView.Adapter<AdapterPhotoList.ViewHolder>() {
-    var itemList = mutableListOf<DataPhotoList>()
+    private var itemList = mutableListOf<DataPhotoList>()
     private var onItemClickListener: ((DataPhotoList, Int) -> Unit)? = null
 
     override fun getItemCount(): Int = itemList.size
