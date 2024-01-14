@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.beemer.unofficial.fromis_9.data.DataChangelog
-import com.beemer.unofficial.fromis_9.datastore.Preferences
 import com.beemer.unofficial.fromis_9.repository.RepositoryAppInfo
 import com.beemer.unofficial.fromis_9.utils.Event
 import com.beemer.unofficial.fromis_9.utils.MyApplication
@@ -28,9 +27,6 @@ class ViewModelSettings(private val repository: RepositoryAppInfo, private val c
     private val _canUpdate = MutableLiveData<Boolean>(false)
     val canUpdate: LiveData<Boolean> = _canUpdate
 
-    private val _isDarkMode = MutableLiveData<Boolean>()
-    val isDarkMode: LiveData<Boolean> = _isDarkMode
-
     private val _changeLog = MutableLiveData<List<DataChangelog>>()
     val changeLog: LiveData<List<DataChangelog>> = _changeLog
 
@@ -38,28 +34,14 @@ class ViewModelSettings(private val repository: RepositoryAppInfo, private val c
     val errorMessage: LiveData<Event<String>> = _errorMessage
 
     init {
-        loadPreferences()
         updateCacheSize()
         getAppVersion()
         getAppInfo()
     }
 
-    fun updateIsDarkMode(isDarkMode: Boolean) {
-        viewModelScope.launch {
-            Preferences.setIsDarkMode(context, isDarkMode)
-            _isDarkMode.value = isDarkMode
-        }
-    }
-
     fun updateCacheSize() {
         val cacheSizeValue = getCacheSize()
         _cacheSize.postValue(cacheSizeValue)
-    }
-
-    private fun loadPreferences() {
-        viewModelScope.launch {
-            _isDarkMode.value = Preferences.getIsDarkMode(context)
-        }
     }
 
     private fun getCacheSize(): String {

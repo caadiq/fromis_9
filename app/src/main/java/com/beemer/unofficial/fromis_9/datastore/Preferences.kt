@@ -14,7 +14,6 @@ val Context.dataStore: DataStore<androidx.datastore.preferences.core.Preferences
 object Preferences {
     private val SORT_BY = stringPreferencesKey("sortBy")
     private val IS_ASCENDING = booleanPreferencesKey("isAscending")
-    private val IS_DARK_MODE = booleanPreferencesKey("isDarkMode")
 
     suspend fun setSortBy(context: Context, sortBy: String) {
         context.dataStore.edit { preferences ->
@@ -37,18 +36,6 @@ object Preferences {
     suspend fun getIsAscending(context: Context): Boolean {
         return context.dataStore.data.map { preferences ->
             preferences[IS_ASCENDING] ?: false
-        }.first()
-    }
-
-    suspend fun setIsDarkMode(context: Context, isDarkMode: Boolean) {
-        context.dataStore.edit { preferences ->
-            preferences[IS_DARK_MODE] = isDarkMode
-        }
-    }
-
-    suspend fun getIsDarkMode(context: Context): Boolean {
-        return context.dataStore.data.map { preferences ->
-            preferences[IS_DARK_MODE] ?: false
         }.first()
     }
 }

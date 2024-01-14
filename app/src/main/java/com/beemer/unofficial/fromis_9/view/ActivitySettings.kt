@@ -32,7 +32,6 @@ class ActivitySettings : AppCompatActivity() {
                 binding.btnUpdate.isEnabled = it
                 if (it) binding.txtCurrentVersion.setTextColor(getColor(R.color.green))
             }
-            isDarkMode.observe(this@ActivitySettings) { binding.switchDarkMode.isChecked = it }
             changeLog.observe(this@ActivitySettings) { changelog ->
                 changeLogList.clear()
                 changelog?.let { changeLogList.addAll(it) }
@@ -49,10 +48,6 @@ class ActivitySettings : AppCompatActivity() {
                 .withLicenseShown(true)
                 .withAboutIconShown(true)
                 .start(this)
-        }
-
-        binding.switchDarkMode.setOnCheckedChangeListener { _, isChecked ->
-            viewModel.updateIsDarkMode(isChecked)
         }
 
         binding.txtChangelog.setOnClickListener {

@@ -1,6 +1,7 @@
 package com.beemer.unofficial.fromis_9.utils
 
 import android.app.Application
+import androidx.appcompat.app.AppCompatDelegate
 
 class MyApplication : Application() {
     companion object {
@@ -10,5 +11,6 @@ class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
     }
 }
