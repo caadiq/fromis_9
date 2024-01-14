@@ -150,12 +150,12 @@
                     android:text="@string/str_activity_settings_version_update"
                     android:textColor="@color/color_button_text"
                     android:textSize="12dp"
-                    app:layout_constraintBottom_toTopOf="@+id/viewDivider"
+                    app:layout_constraintBottom_toTopOf="@+id/viewDividerInfo"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <View
-                    android:id="@+id/viewDivider"
+                    android:id="@+id/viewDividerInfo"
                     android:layout_width="0dp"
                     android:layout_height="1dp"
                     android:layout_marginStart="16dp"
@@ -179,7 +179,7 @@
                     android:textSize="20dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/viewDivider" />
+                    app:layout_constraintTop_toBottomOf="@+id/viewDividerInfo" />
 
                 <View
                     android:id="@+id/viewCache"
@@ -217,43 +217,85 @@
                     android:textSize="12dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/viewDivider" />
+                    app:layout_constraintTop_toBottomOf="@+id/viewDividerInfo" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/txtLicense"
+                android:id="@+id/txtOthers"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="48dp"
                 android:layout_marginTop="48dp"
                 android:fontFamily="@font/nanum_square_round_extra_bold"
-                android:text="@string/str_activity_settings_license"
+                android:text="@string/str_activity_settings_others"
                 android:textColor="@color/dark_gray"
                 android:textSize="20dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/layoutInfo" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/txtLicenseDetails"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layoutOthers"
                 android:layout_width="0dp"
-                android:layout_height="60dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="32dp"
-                android:background="@drawable/drawable_button_license"
-                android:clickable="true"
-                android:focusable="true"
-                android:fontFamily="@font/nanum_square_round_extra_bold"
-                android:gravity="center_vertical|start"
-                android:paddingStart="20dp"
-                android:paddingEnd="0dp"
-                android:text="@string/str_activity_settings_license_detail"
-                android:textColor="@color/dark_gray"
-                android:textSize="20dp"
+                android:background="@drawable/drawable_settings_layout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtLicense" />
+                app:layout_constraintTop_toBottomOf="@+id/txtOthers">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txtLicense"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/drawable_settings_textview"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:fontFamily="@font/nanum_square_round_extra_bold"
+                    android:gravity="center_vertical|start"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="0dp"
+                    android:text="@string/str_activity_settings_license"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="20dp"
+                    app:layout_constraintBottom_toTopOf="@+id/viewDividerOthers"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/viewDividerOthers"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@color/light_gray"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtLicense" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txtChangelog"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:background="@drawable/drawable_settings_textview"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:fontFamily="@font/nanum_square_round_extra_bold"
+                    android:gravity="center_vertical|start"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="0dp"
+                    android:text="@string/str_activity_settings_changelog"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/viewDividerOthers" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

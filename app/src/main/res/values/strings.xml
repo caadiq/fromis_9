@@ -23,8 +23,9 @@
     <string name="str_activity_settings_version_update">업데이트</string>
     <string name="str_activity_settings_cache">캐시</string>
     <string name="str_activity_settings_cache_clear">캐시 삭제</string>
+    <string name="str_activity_settings_others">기타</string>
     <string name="str_activity_settings_license">라이선스</string>
-    <string name="str_activity_settings_license_detail">라이선스 상세</string>
+    <string name="str_activity_settings_changelog">체인지로그</string>
     <!-- fragment_main_video -->
     <string name="str_fragment_main_video_all">전체</string>
     <string name="str_fragment_main_video_mv">뮤직비디오</string>
@@ -40,6 +41,9 @@
     <string name="str_dialog_member_birth">출생</string>
     <string name="str_dialog_member_blood">혈액형</string>
     <string name="str_dialog_member_position">포지션</string>
+    <!-- dialog_changelog -->
+    <string name="str_dialog_changelog_title">체인지로그</string>
+    <string name="str_dialog_changelog_close">확인</string>
 
     <!-- - - - - - - - - - - - - - - - - - - - - - Class - - - - - - - - - - - - - - - - - - - - - - -->
     <!-- ActivityMain -->

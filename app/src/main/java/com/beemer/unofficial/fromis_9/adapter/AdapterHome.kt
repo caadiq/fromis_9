@@ -12,7 +12,7 @@ import com.beemer.unofficial.fromis_9.diff.HomeDiffUtil
 import com.bumptech.glide.Glide
 
 class AdapterHome : RecyclerView.Adapter<AdapterHome.ViewHolder>() {
-    var itemList = mutableListOf<DataHome>()
+    private var itemList = mutableListOf<DataHome>()
     private var onItemClickListener: ((DataHome, Int) -> Unit)? = null
 
     override fun getItemCount(): Int = itemList.size

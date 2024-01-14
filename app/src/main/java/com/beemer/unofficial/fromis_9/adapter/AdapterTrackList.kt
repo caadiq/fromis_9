@@ -11,7 +11,7 @@ import com.beemer.unofficial.fromis_9.databinding.RowAlbumTracklistBinding
 import com.beemer.unofficial.fromis_9.diff.TrackListDiffUtil
 
 class AdapterTrackList : RecyclerView.Adapter<AdapterTrackList.ViewHolder>() {
-    var itemList = mutableListOf<DataTrackList>()
+    private var itemList = mutableListOf<DataTrackList>()
     private var onItemClickListener: ((DataTrackList, Int) -> Unit)? = null
 
     override fun getItemCount(): Int = itemList.size

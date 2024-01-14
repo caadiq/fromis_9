@@ -13,7 +13,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 
 class AdapterMembers : RecyclerView.Adapter<AdapterMembers.ViewHolder>() {
-    var itemList = mutableListOf<DataMembers>()
+    private var itemList = mutableListOf<DataMembers>()
     private var onItemClickListener: ((DataMembers, Int) -> Unit)? = null
 
     override fun getItemCount(): Int = itemList.size
