@@ -16,8 +16,6 @@
     <!-- activity_introduction -->
     <string name="str_activity_introduction_debut">데뷔일</string>
     <!-- activity_settings -->
-    <string name="str_activity_settings_settings">설정</string>
-    <string name="str_activity_settings_darkmode">다크 모드</string>
     <string name="str_activity_settings_info">정보</string>
     <string name="str_activity_settings_version">버전</string>
     <string name="str_activity_settings_version_update">업데이트</string>
